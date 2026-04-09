@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Web Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0d0d0d;
+  --ink2:#3a3a3a;
+  --ink3:#888;
+  --paper:#faf9f6;
+  --paper2:#f3f1ec;
+  --accent:#1a1a1a;
+  --line:rgba(0,0,0,0.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;overflow-x:hidden}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-bottom:0.5px solid var(--line)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.15em;color:var(--ink)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:12px;letter-spacing:0.12em;color:var(--ink3);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;border-bottom:0.5px solid var(--line)}
+.hero-left{padding:80px 48px;display:flex;flex-direction:column;justify-content:space-between;border-right:0.5px solid var(--line)}
+.hero-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink3);margin-bottom:48px;text-transform:uppercase}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,6vw,88px);font-weight:300;line-height:1.08;letter-spacing:-0.01em;color:var(--ink)}
+.hero-title em{font-style:italic;color:var(--ink2)}
+.hero-bottom{margin-top:auto;padding-top:48px}
+.hero-desc{font-size:14px;font-weight:300;color:var(--ink3);max-width:320px;line-height:1.9;margin-bottom:36px}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:0.1em;padding:14px 32px;text-decoration:none;transition:opacity 0.2s;font-family:'Noto Sans JP',sans-serif}
+.btn-primary:hover{opacity:0.8}
+
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:48px;background:var(--paper2)}
+.price-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink3);margin-bottom:16px;text-transform:uppercase}
+.price-strike{font-size:14px;color:var(--ink3);text-decoration:line-through;margin-bottom:8px}
+.price-big{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,7vw,96px);font-weight:300;line-height:1;color:var(--ink);margin-bottom:4px}
+.price-note{font-size:12px;color:var(--ink3);letter-spacing:0.08em}
+.hero-rule{width:100%;height:0.5px;background:var(--line);margin:32px 0}
+.hero-stats{display:flex;gap:32px}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink);display:block}
+.stat-label{font-size:11px;color:var(--ink3);letter-spacing:0.1em}
+
+.marquee-wrap{border-bottom:0.5px solid var(--line);border-top:0.5px solid var(--line);padding:14px 0;overflow:hidden;background:var(--ink)}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:rgba(255,255,255,0.45);padding:0 40px;text-transform:uppercase}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--line)}
+.feat{padding:48px;border-right:0.5px solid var(--line);transition:background 0.25s}
+.feat:last-child{border-right:none}
+.feat:hover{background:var(--paper2)}
+.feat-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:0.15em;margin-bottom:40px}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1.35;margin-bottom:16px;color:var(--ink)}
+.feat-text{font-size:13px;font-weight:300;color:var(--ink3);line-height:1.9}
+
+.process-section{padding:96px 48px;border-bottom:0.5px solid var(--line)}
+.section-header{display:flex;align-items:baseline;gap:24px;margin-bottom:64px}
+.section-en{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--ink)}
+.section-jp{font-size:13px;color:var(--ink3);letter-spacing:0.1em}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--line)}
+.step{padding:36px 28px;border-right:0.5px solid var(--line)}
+.step:last-child{border-right:none}
+.step-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);margin-bottom:28px;letter-spacing:0.15em}
+.step-title{font-size:15px;font-weight:500;margin-bottom:10px;color:var(--ink)}
+.step-text{font-size:12px;font-weight:300;color:var(--ink3);line-height:1.8}
+
+.plans-section{padding:96px 48px;border-bottom:0.5px solid var(--line)}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--line);margin-top:64px}
+.plan{padding:44px 36px;border-right:0.5px solid var(--line);display:flex;flex-direction:column}
+.plan:last-child{border-right:none}
+.plan.featured{background:var(--ink);color:var(--paper)}
+.plan-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:28px}
+.plan.featured .plan-tag{color:rgba(255,255,255,0.45)}
+.plan:not(.featured) .plan-tag{color:var(--ink3)}
+.plan-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:8px}
+.plan.featured .plan-name{color:var(--paper)}
+.plan:not(.featured) .plan-name{color:var(--ink)}
+.plan-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;line-height:1}
+.plan.featured .plan-price{color:var(--paper)}
+.plan:not(.featured) .plan-price{color:var(--ink)}
+.plan-mo{font-size:12px;margin-bottom:28px}
+.plan.featured .plan-mo{color:rgba(255,255,255,0.45)}
+.plan:not(.featured) .plan-mo{color:var(--ink3)}
+.plan-div{height:0.5px;margin-bottom:28px}
+.plan.featured .plan-div{background:rgba(255,255,255,0.15)}
+.plan:not(.featured) .plan-div{background:var(--line)}
+.plan-features{list-style:none;flex:1;margin-bottom:36px}
+.plan-features li{font-size:13px;font-weight:300;padding:8px 0;border-bottom:0.5px solid;display:flex;align-items:center;gap:10px}
+.plan.featured .plan-features li{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.1)}
+.plan:not(.featured) .plan-features li{color:var(--ink2);border-color:var(--line)}
+.check{width:14px;height:14px;flex-shrink:0}
+.plan.featured .check{color:rgba(255,255,255,0.5)}
+.plan:not(.featured) .check{color:var(--ink3)}
+.plan-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:5px 12px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);margin-bottom:16px;text-transform:uppercase}
+.plan-cta{display:inline-block;text-align:center;padding:13px 24px;font-size:12px;letter-spacing:0.12em;text-decoration:none;transition:all 0.2s;font-family:'Noto Sans JP',sans-serif}
+.plan.featured .plan-cta{background:var(--paper);color:var(--ink)}
+.plan.featured .plan-cta:hover{background:rgba(255,255,255,0.85)}
+.plan:not(.featured) .plan-cta{border:0.5px solid var(--ink);color:var(--ink)}
+.plan:not(.featured) .plan-cta:hover{background:var(--ink);color:var(--paper)}
+
+.cta-section{padding:120px 48px;background:var(--ink);text-align:center}
+.cta-pre{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:24px;text-transform:uppercase}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;color:var(--paper);line-height:1.2;margin-bottom:16px}
+.cta-title em{font-style:italic;color:rgba(255,255,255,0.55)}
+.cta-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,0.45);margin-bottom:52px}
+.btn-white{display:inline-flex;align-items:center;gap:12px;background:var(--paper);color:var(--ink);font-size:13px;letter-spacing:0.12em;padding:16px 40px;text-decoration:none;transition:opacity 0.2s;font-family:'Noto Sans JP',sans-serif}
+.btn-white:hover{opacity:0.88}
+
+footer{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-top:0.5px solid var(--line)}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;letter-spacing:0.15em}
+.footer-copy{font-size:11px;color:var(--ink3);letter-spacing:0.08em}
+
+@media(max-width:860px){
+  nav{padding:20px 24px}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:48px 24px;border-right:none;border-bottom:0.5px solid var(--line)}
+  .hero-right{padding:36px 24px}
+  .features{grid-template-columns:1fr}
+  .feat{border-right:none;border-bottom:0.5px solid var(--line);padding:36px 24px}
+  .feat:last-child{border-bottom:none}
+  .process-section,.plans-section,.cta-section{padding:64px 24px}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .step{border-bottom:0.5px solid var(--line)}
+  .step:nth-child(2n){border-right:none}
+  .plans-grid{grid-template-columns:1fr}
+  .plan{border-right:none;border-bottom:0.5px solid var(--line)}
+  .plan.featured{border-color:rgba(255,255,255,0.15)}
+  .plan:last-child{border-bottom:none}
+  footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Web Design</span>
+  <div class="nav-links">
+    <a href="#features">特徴</a>
+    <a href="#process">制作の流れ</a>
+    <a href="#plans">プラン</a>
+    <a href="https://lin.ee/Z9vjxWH">お問い合わせ</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Web Design &amp; Development</p>
+    <h1 class="hero-title">想いを、<br><em>Webで</em><br>形にする。</h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">HTMLとCSSの基礎から学べる、丁寧なホームページ制作サービス。プロ品質のサイトを、驚きの低価格でお届けします。</p>
+      <a href="https://lin.ee/Z9vjxWH" class="btn-primary">無料相談はこちら →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="price-tag">制作費・特別価格</p>
+    <p class="price-strike">通常 ¥30,000</p>
+    <p class="price-big">¥8,000</p>
+    <p class="price-note">税別 / 初回限定</p>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div><span class="stat-num">3</span><span class="stat-label">月額プラン</span></div>
+      <div><span class="stat-num">73%</span><span class="stat-label">コスト削減</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">HTML &amp; CSS ◆</span>
+    <span class="marquee-item">Web Design ◆</span>
+    <span class="marquee-item">Low Price ◆</span>
+    <span class="marquee-item">Server &amp; Domain ◆</span>
+    <span class="marquee-item">Monthly Support ◆</span>
+    <span class="marquee-item">Content Update ◆</span>
+    <span class="marquee-item">HTML &amp; CSS ◆</span>
+    <span class="marquee-item">Web Design ◆</span>
+    <span class="marquee-item">Low Price ◆</span>
+    <span class="marquee-item">Server &amp; Domain ◆</span>
+    <span class="marquee-item">Monthly Support ◆</span>
+    <span class="marquee-item">Content Update ◆</span>
+  </div>
+</div>
+
+<section class="features" id="features">
+  <div class="feat">
+    <p class="feat-num">01</p>
+    <h3 class="feat-title">圧倒的な<br>コストパフォーマンス</h3>
+    <p class="feat-text">通常3万円の制作費をわずか8,000円でご提供。品質は一切妥協しません。</p>
+  </div>
+  <div class="feat">
+    <p class="feat-num">02</p>
+    <h3 class="feat-title">HTMLとCSS、<br>一緒に学べる</h3>
+    <p class="feat-text">制作過程でWebの基礎知識を習得。納品後も自分でサイトを触れるスキルが身につきます。</p>
+  </div>
+  <div class="feat">
+    <p class="feat-num">03</p>
+    <h3 class="feat-title">制作後も<br>安心サポート</h3>
+    <p class="feat-text">月額プランでサーバー・ドメイン管理からコンテンツ更新まで継続サポートします。</p>
+  </div>
+</section>
+
+<section class="process-section" id="process">
+  <div class="section-header">
+    <h2 class="section-en">Process</h2>
+    <span class="section-jp">制作の流れ</span>
+  </div>
+  <div class="process-grid">
+    <div class="step">
+      <p class="step-num">STEP 01</p>
+      <p class="step-title">ヒアリング</p>
+      <p class="step-text">目的・ターゲット・イメージを丁寧にお聞きし、最適なプランをご提案します。</p>
+    </div>
+    <div class="step">
+      <p class="step-num">STEP 02</p>
+      <p class="step-title">デザイン・制作</p>
+      <p class="step-text">HTML・CSSを解説しながら制作。コードの意味も一緒に学べます。</p>
+    </div>
+    <div class="step">
+      <p class="step-num">STEP 03</p>
+      <p class="step-title">確認・修正</p>
+      <p class="step-text">仮公開ページでご確認いただき、細部まで丁寧に修正対応します。</p>
+    </div>
+    <div class="step">
+      <p class="step-num">STEP 04</p>
+      <p class="step-title">公開・サポート</p>
+      <p class="step-text">本公開後も月額プランで継続サポート。長くお付き合いします。</p>
+    </div>
+  </div>
+</section>
+
+<section class="plans-section" id="plans">
+  <div class="section-header">
+    <h2 class="section-en">Plans</h2>
+    <span class="section-jp">月額サポートプラン</span>
+  </div>
+  <div class="plans-grid">
+    <div class="plan">
+      <p class="plan-tag">Light Plan</p>
+      <p class="plan-name">ライト</p>
+      <p class="plan-price">¥3,000</p>
+      <p class="plan-mo">/ 月（税別）</p>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
+      </ul>
+      <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">人気プラン</div>
+      <p class="plan-tag">Standard Plan</p>
+      <p class="plan-name">スタンダード</p>
+      <p class="plan-price">¥5,000</p>
+      <p class="plan-mo">/ 月（税別）</p>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
+      </ul>
+      <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
+    </div>
+    <div class="plan">
+      <p class="plan-tag">Premium Plan</p>
+      <p class="plan-name">プレミアム</p>
+      <p class="plan-price">¥10,000</p>
+      <p class="plan-mo">/ 月（税別）</p>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>画像・文章の新規作成</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>独自ドメインの管理</li>
+      </ul>
+      <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <p class="cta-pre">Free Consultation</p>
+  <h2 class="cta-title">まずは、<em>気軽に</em><br>ご相談ください。</h2>
+  <p class="cta-sub">LINEからいつでもお気軽にどうぞ。お見積もりは無料です。</p>
+  <a href="https://lin.ee/Z9vjxWH" class="btn-white">LINEで相談する →</a>
+</section>
+
+<footer>
+  <span class="footer-logo">Web Design</span>
+  <span class="footer-copy">&copy; 2025 Web Design Service</span>
+</footer>
+
+</body>
+</html>
