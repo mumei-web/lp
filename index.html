@@ -134,6 +134,118 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
   .plan:last-child{border-bottom:none}
   footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center}
 }
+.hero-desc {
+  font-weight: 400; /* 300から400へ */
+  color: var(--ink2); /* 少しだけ濃い色へ */
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3件横並び */
+  gap: 0;
+  border-bottom: 0.5px solid var(--line);
+  border-left: 0.5px solid var(--line);
+}
+
+.work-card {
+  padding: 48px;
+  border-right: 0.5px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+.device-frame {
+  width: 100%;
+  height: 450px;
+  overflow-y: scroll;
+  border: 0.5px solid var(--line);
+  background: var(--paper2);
+  scrollbar-width: none; /* Firefoxスクロールバー非表示 */
+}
+.device-frame::-webkit-scrollbar {
+  display: none; /* Chrome/Safariスクロールバー非表示 */
+}
+
+.scrolling-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.work-info {
+  margin-top: 32px;
+}
+
+.work-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ink3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.work-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.work-text {
+  font-size: 12px;
+  color: var(--ink3);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.btn-view-full {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--ink);
+  padding-bottom: 2px;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+
+.btn-view-full:hover {
+  opacity: 0.5;
+}
+
+/* スマホ表示の調整 */
+@media(max-width:860px){
+  .portfolio-grid { grid-template-columns: 1fr; border-left: none; }
+  .work-card { border-right: none; border-bottom: 0.5px solid var(--line); padding: 48px 24px; }
+  .device-frame { height: 350px; }
+}
+.btn-view-full {
+  display: inline-block;
+  background: var(--ink); /* 黒背景 */
+  color: var(--paper); /* 白文字 */
+  padding: 12px 24px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+  border: 0.5px solid var(--ink);
+}
+
+.btn-view-full:hover {
+  background: transparent;
+  color: var(--ink);
+  opacity: 1;
+}
+.portfolio-grid {
+  display: grid;
+  /* repeat(3, 1fr) から repeat(auto-fit, minmax(320px, 1fr)) へ変更 */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: 0;
+  border-bottom: 0.5px solid var(--line);
+  border-left: 0.5px solid var(--line);
+}
+
 </style>
 </head>
 <body>
@@ -153,7 +265,11 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
     <p class="hero-tag">Web Design &amp; Development</p>
     <h1 class="hero-title">想いを、<br><em>Webで</em><br>形にする。</h1>
     <div class="hero-bottom">
-      <p class="hero-desc">HTMLとCSSの基礎から学べる、丁寧なホームページ制作サービス。プロ品質のサイトを、驚きの低価格でお届けします。</p>
+      <p class="hero-desc">
+  何を伝えるべきか、一緒に考えるところから始めましょう。
+  丁寧なヒアリングで、あなたのビジネスに寄り添った
+  オーダーメイドのサイトを、驚きの低価格でお届けします。
+</p>
       <a href="https://lin.ee/Z9vjxWH" class="btn-primary">無料相談はこちら →</a>
     </div>
   </div>
@@ -162,6 +278,7 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
     <p class="price-strike">通常 ¥30,000</p>
     <p class="price-big">¥8,000</p>
     <p class="price-note">税別 / 初回限定</p>
+<p style="font-size: 10px; color: var(--ink3); margin-top: 8px;">※制作実績への掲載にご協力いただける方限定</p>
     <div class="hero-rule"></div>
     <div class="hero-stats">
       <div><span class="stat-num">3</span><span class="stat-label">月額プラン</span></div>
@@ -195,8 +312,8 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
   </div>
   <div class="feat">
     <p class="feat-num">02</p>
-    <h3 class="feat-title">HTMLとCSS、<br>一緒に学べる</h3>
-    <p class="feat-text">制作過程でWebの基礎知識を習得。納品後も自分でサイトを触れるスキルが身につきます。</p>
+    <h3 class="feat-title">徹底したヒアリングと<br>柔軟なオーダーメイド</h3>
+    <p class="feat-text">お客様のこだわりや理想のイメージを丁寧に反映。<br>進捗を都度共有しながら、二人三脚でサイトを作り上げます。</p>
   </div>
   <div class="feat">
     <p class="feat-num">03</p>
@@ -204,7 +321,56 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
     <p class="feat-text">月額プランでサーバー・ドメイン管理からコンテンツ更新まで継続サポートします。</p>
   </div>
 </section>
+<section class="portfolio-section" id="portfolio">
+  <div class="section-header" style="padding: 96px 48px 0;">
+    <h2 class="section-en">Portfolio</h2>
+    <span class="section-jp">制作実績</span>
+  </div>
 
+  <div class="portfolio-grid">
+    <div class="work-card">
+      <div class="device-frame">
+        <img src="imagesLP/lp2.jpg" alt="実績1" class="scrolling-img">
+      </div>
+      <div class="work-info">
+        <p class="work-tag">Nail Salon / LP</p>
+        <h3 class="work-title">Tem Nails</h3>
+        <p class="work-text">クライアント様のこだわりである店内の色合いを忠実に再現し、一目で「オシャレ」と感じる世界観を構築。直感的に予約ができる導線設計で、Instagramからの流入を無駄にしません。</p>
+        <a href="https://mumei-web.github.io/Tem.Nails/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="device-frame">
+        <img src="imagesLP/lp1.jpg" alt="実績2" class="scrolling-img">
+      </div>
+      <div class="work-info">
+        <p class="work-tag">head spa / HP</p>
+        <h3 class="work-title">Luana</h3>
+        <p class="work-text">「ハワイ感×高級感」というご要望を、上質なフォントと余白で表現。非日常的なリラックス体験を想起させるデザインに加え、迷わせないお問い合わせ動線を徹底しました。</p>
+        <a href="https://mumei-web.github.io/Luana.salon/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="device-frame">
+        <img src="imagesLP/lp4.jpg" alt="実績3" class="scrolling-img">
+      </div>
+      <div class="work-info">
+        <p class="work-tag">rental items / HP</p>
+        <h3 class="work-title">baby item</h3>
+        <p class="work-text">老若男女どなたでも見やすいレイアウト。検討時に重要な「料金表」を細かく丁寧に整理し、不安を解消することで、レンタルへのハードルを下げる工夫を凝らしました。</p>
+        <a href="https://mumei-web.github.io/baby-item/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; padding: 48px 24px; border-bottom: 0.5px solid var(--line);">
+  <p style="font-size: 14px; color: var(--ink2); line-height: 2;">
+    「ただ作る」のではなく、あなたの想いや集客の悩みに徹底的に寄り添います。<br>
+    予約導線、料金の見せ方、色のニュアンス。どんな小さなこだわりも形にします。
+  </p>
+</div>
+</section>
 <section class="process-section" id="process">
   <div class="section-header">
     <h2 class="section-en">Process</h2>
@@ -218,8 +384,8 @@ footer{display:flex;align-items:center;justify-content:space-between;padding:24p
     </div>
     <div class="step">
       <p class="step-num">STEP 02</p>
-      <p class="step-title">デザイン・制作</p>
-      <p class="step-text">HTML・CSSを解説しながら制作。コードの意味も一緒に学べます。</p>
+      <p class="step-title">デザイン・構築</p>
+      <p class="step-text">ヒアリング内容をもとに、プロ品質のコーディングを行います。<br>進捗を共有しながら、理想のイメージに近づけていきます。</p>
     </div>
     <div class="step">
       <p class="step-num">STEP 03</p>
