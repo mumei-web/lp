@@ -3,541 +3,1044 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Web Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<title>Web Design — 想いを、Webで形にする。</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
 :root{
-  --ink:#0d0d0d;
-  --ink2:#3a3a3a;
-  --ink3:#888;
-  --paper:#faf9f6;
-  --paper2:#f3f1ec;
-  --accent:#1a1a1a;
-  --line:rgba(0,0,0,0.1);
+  --bg:        #0a0a0a;
+  --bg2:       #111111;
+  --bg3:       #161616;
+  --surface:   #1c1c1c;
+  --surface2:  #232323;
+  --gold:      #c9a96e;
+  --gold2:     #e8d5a3;
+  --gold-dim:  rgba(201,169,110,0.15);
+  --white:     #f0ece4;
+  --white2:    #d4cfc6;
+  --muted:     #6b6660;
+  --line:      rgba(201,169,110,0.18);
+  --line2:     rgba(255,255,255,0.07);
+  --accent:    #c9a96e;
 }
+
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;overflow-x:hidden}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  line-height:1.7;
+  overflow-x:hidden;
+}
 
-nav{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-bottom:0.5px solid var(--line)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.15em;color:var(--ink)}
-.nav-links{display:flex;gap:32px}
-.nav-links a{font-size:12px;letter-spacing:0.12em;color:var(--ink3);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover{color:var(--ink)}
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+  opacity:0.6;
+}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;border-bottom:0.5px solid var(--line)}
-.hero-left{padding:80px 48px;display:flex;flex-direction:column;justify-content:space-between;border-right:0.5px solid var(--line)}
-.hero-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink3);margin-bottom:48px;text-transform:uppercase}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,6vw,88px);font-weight:300;line-height:1.08;letter-spacing:-0.01em;color:var(--ink)}
-.hero-title em{font-style:italic;color:var(--ink2)}
-.hero-bottom{margin-top:auto;padding-top:48px}
-.hero-desc{font-size:14px;font-weight:300;color:var(--ink3);max-width:320px;line-height:1.9;margin-bottom:36px}
-.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:0.1em;padding:14px 32px;text-decoration:none;transition:opacity 0.2s;font-family:'Noto Sans JP',sans-serif}
-.btn-primary:hover{opacity:0.8}
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
 
-.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:48px;background:var(--paper2)}
-.price-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink3);margin-bottom:16px;text-transform:uppercase}
-.price-strike{font-size:14px;color:var(--ink3);text-decoration:line-through;margin-bottom:8px}
-.price-big{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,7vw,96px);font-weight:300;line-height:1;color:var(--ink);margin-bottom:4px}
-.price-note{font-size:12px;color:var(--ink3);letter-spacing:0.08em}
-.hero-rule{width:100%;height:0.5px;background:var(--line);margin:32px 0}
-.hero-stats{display:flex;gap:32px}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink);display:block}
-.stat-label{font-size:11px;color:var(--ink3);letter-spacing:0.1em}
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 56px;
+  border-bottom:0.5px solid transparent;
+  transition:all 0.5s ease;
+}
+nav.scrolled{
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom-color:var(--line);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:400;
+  letter-spacing:0.12em;
+  color:var(--white);
+}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:40px;align-items:center}
+.nav-links a{
+  font-size:11px;letter-spacing:0.18em;
+  color:var(--muted);text-decoration:none;
+  text-transform:uppercase;
+  transition:color 0.25s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{
+  font-size:11px;letter-spacing:0.18em;
+  color:var(--bg)!important;
+  background:var(--gold);
+  padding:10px 22px;
+  text-transform:uppercase;
+  transition:opacity 0.25s!important;
+}
+.nav-cta:hover{opacity:0.85;color:var(--bg)!important}
 
-.marquee-wrap{border-bottom:0.5px solid var(--line);border-top:0.5px solid var(--line);padding:14px 0;overflow:hidden;background:var(--ink)}
-.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
-.marquee-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:rgba(255,255,255,0.45);padding:0 40px;text-transform:uppercase}
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-left{
+  padding:160px 56px 80px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:0.5px solid var(--line);
+  position:relative;
+  z-index:2;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:56px;
+}
+.hero-eyebrow::before{
+  content:'';width:36px;height:0.5px;background:var(--gold);
+}
+.hero-eyebrow-text{
+  font-size:10px;letter-spacing:0.3em;
+  color:var(--gold);text-transform:uppercase;
+}
+.hero-title{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(44px,5.5vw,78px);
+  font-weight:200;
+  line-height:1.18;
+  letter-spacing:0.04em;
+  color:var(--white);
+}
+.hero-title em{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-weight:400;
+  color:var(--gold);
+  font-size:1.08em;
+  letter-spacing:0.02em;
+}
+.hero-title .sub-line{
+  display:block;
+  font-size:0.62em;
+  font-weight:300;
+  color:var(--white2);
+  letter-spacing:0.06em;
+  margin-top:20px;
+}
+.hero-bottom{margin-top:auto;padding-top:56px}
+.hero-desc{
+  font-size:14px;font-weight:300;
+  color:var(--muted);
+  line-height:2;max-width:340px;
+  margin-bottom:40px;
+  letter-spacing:0.03em;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--gold);color:var(--bg);
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  padding:16px 36px;
+  text-decoration:none;
+  transition:all 0.3s ease;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+  position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--white);
+  transform:translateX(-101%);
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-primary:hover{color:var(--bg)}
+.btn-primary span{position:relative;z-index:1}
+
+/* hero right panel */
+.hero-right{
+  padding:160px 56px 80px;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  background:var(--bg2);
+  position:relative;
+  overflow:hidden;
+}
+.hero-right::before{
+  content:'';
+  position:absolute;
+  top:-200px;right:-200px;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,0.06) 0%,transparent 70%);
+}
+.price-label{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+.price-old{
+  font-size:13px;color:var(--muted);
+  text-decoration:line-through;margin-bottom:6px;
+}
+.price-main{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(72px,8vw,108px);
+  font-weight:400;line-height:0.9;
+  color:var(--white);
+  letter-spacing:-0.02em;
+}
+.price-main sup{font-size:0.3em;vertical-align:super;color:var(--gold)}
+.price-sub{
+  font-size:12px;color:var(--muted);
+  letter-spacing:0.1em;margin-top:10px;
+  margin-bottom:4px;
+}
+.price-note{
+  font-size:10px;color:var(--muted);
+  letter-spacing:0.06em;
+  border-left:2px solid var(--gold);
+  padding-left:12px;
+  line-height:1.6;
+  margin-top:16px;
+}
+.hero-divider{
+  width:100%;height:0.5px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  margin:36px 0;
+}
+.hero-stats{display:flex;gap:40px}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:38px;font-weight:400;
+  color:var(--gold);display:block;
+  line-height:1;
+}
+.stat-label{
+  font-size:10px;color:var(--muted);
+  letter-spacing:0.12em;margin-top:6px;
+  display:block;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{
+  padding:16px 0;overflow:hidden;
+  background:var(--surface);
+  border-top:0.5px solid var(--line);
+  border-bottom:0.5px solid var(--line);
+}
+.marquee-track{
+  display:flex;white-space:nowrap;
+  animation:marquee 28s linear infinite;
+}
+.marquee-item{
+  font-size:10px;letter-spacing:0.25em;
+  color:var(--gold);padding:0 44px;
+  text-transform:uppercase;
+  opacity:0.7;
+}
+.marquee-sep{color:var(--gold);opacity:0.4}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-.features{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--line)}
-.feat{padding:48px;border-right:0.5px solid var(--line);transition:background 0.25s}
+/* ─── SECTION HEADER ─── */
+.section-tag{
+  font-size:9px;letter-spacing:0.35em;
+  color:var(--gold);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.section-tag::before{content:'';width:28px;height:0.5px;background:var(--gold)}
+.section-title-en{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,4vw,60px);
+  font-weight:400;color:var(--white);
+  letter-spacing:-0.01em;margin-bottom:8px;
+}
+.section-title-jp{
+  font-size:13px;color:var(--muted);
+  letter-spacing:0.12em;margin-bottom:0;
+}
+
+/* ─── FEATURES ─── */
+.features-section{
+  padding:100px 56px;
+  border-bottom:0.5px solid var(--line2);
+}
+.features-header{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:48px;align-items:end;
+  margin-bottom:72px;
+  padding-bottom:64px;
+  border-bottom:0.5px solid var(--line2);
+}
+.features-intro{
+  font-size:15px;font-weight:300;
+  color:var(--white2);
+  line-height:2;
+  letter-spacing:0.04em;
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;
+}
+.feat{
+  padding:44px 40px;
+  border-right:0.5px solid var(--line2);
+  position:relative;
+  transition:background 0.3s;
+}
 .feat:last-child{border-right:none}
-.feat:hover{background:var(--paper2)}
-.feat-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:0.15em;margin-bottom:40px}
-.feat-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1.35;margin-bottom:16px;color:var(--ink)}
-.feat-text{font-size:13px;font-weight:300;color:var(--ink3);line-height:1.9}
+.feat::after{
+  content:'';
+  position:absolute;bottom:0;left:0;
+  width:0;height:1px;
+  background:var(--gold);
+  transition:width 0.4s ease;
+}
+.feat:hover::after{width:100%}
+.feat:hover{background:var(--bg2)}
+.feat-num{
+  font-family:'Playfair Display',serif;
+  font-size:56px;font-weight:400;
+  color:var(--gold-dim);
+  line-height:1;
+  margin-bottom:28px;
+  position:relative;
+}
+.feat-num::after{
+  content:attr(data-num);
+  position:absolute;
+  top:2px;left:2px;
+  font-size:56px;
+  color:transparent;
+  -webkit-text-stroke:0.5px var(--gold);
+  opacity:0.35;
+}
+.feat-title{
+  font-family:'Noto Serif JP',serif;
+  font-size:19px;font-weight:300;
+  line-height:1.6;
+  margin-bottom:18px;
+  color:var(--white);
+  letter-spacing:0.04em;
+}
+.feat-text{
+  font-size:13px;font-weight:300;
+  color:var(--muted);line-height:1.95;
+  letter-spacing:0.02em;
+}
 
-.process-section{padding:96px 48px;border-bottom:0.5px solid var(--line)}
-.section-header{display:flex;align-items:baseline;gap:24px;margin-bottom:64px}
-.section-en{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--ink)}
-.section-jp{font-size:13px;color:var(--ink3);letter-spacing:0.1em}
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--line)}
-.step{padding:36px 28px;border-right:0.5px solid var(--line)}
+/* ─── PORTFOLIO ─── */
+.portfolio-section{
+  padding:100px 0 0;
+  border-bottom:0.5px solid var(--line2);
+}
+.portfolio-header{
+  padding:0 56px 56px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.portfolio-note{
+  font-size:12px;color:var(--muted);
+  max-width:280px;line-height:1.9;
+  letter-spacing:0.04em;
+  text-align:right;
+}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+.work-card{
+  border-right:0.5px solid var(--line2);
+  display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+.work-card:last-child{border-right:none}
+
+.device-frame{
+  width:100%;height:480px;
+  overflow:hidden;
+  position:relative;
+  background:var(--bg2);
+}
+.device-frame img{
+  width:100%;height:auto;
+  display:block;
+  transition:transform 12s linear;
+}
+.work-card:hover .device-frame img{
+  transform:translateY(calc(-100% + 480px));
+}
+.device-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,var(--bg) 100%);
+  pointer-events:none;
+  z-index:2;
+}
+
+.work-info{
+  padding:32px 36px 40px;
+  background:var(--bg);
+  flex:1;
+  display:flex;flex-direction:column;
+}
+.work-tag{
+  font-size:9px;letter-spacing:0.3em;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.work-title{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:400;
+  margin-bottom:14px;
+  color:var(--white);
+  letter-spacing:0.01em;
+}
+.work-text{
+  font-size:12px;color:var(--muted);
+  line-height:1.95;flex:1;
+  letter-spacing:0.03em;
+  margin-bottom:28px;
+}
+.btn-view{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:0.2em;
+  color:var(--gold);text-decoration:none;
+  text-transform:uppercase;
+  border-bottom:0.5px solid var(--gold);
+  padding-bottom:4px;
+  transition:gap 0.25s,opacity 0.25s;
+  width:fit-content;
+}
+.btn-view:hover{gap:16px;opacity:0.75}
+
+.portfolio-cta{
+  padding:64px 56px;
+  background:var(--bg2);
+  text-align:center;
+  border-top:0.5px solid var(--line2);
+}
+.portfolio-cta p{
+  font-family:'Noto Serif JP',serif;
+  font-size:15px;font-weight:300;
+  color:var(--white2);line-height:2.2;
+  letter-spacing:0.06em;
+}
+.portfolio-cta em{
+  font-style:normal;
+  color:var(--gold);
+}
+
+/* ─── PROCESS ─── */
+.process-section{
+  padding:100px 56px;
+  border-bottom:0.5px solid var(--line2);
+  position:relative;
+}
+.process-section::before{
+  content:'';
+  position:absolute;
+  top:0;right:0;
+  width:40%;height:100%;
+  background:radial-gradient(ellipse at 80% 50%,rgba(201,169,110,0.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+.process-header{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:48px;
+  margin-bottom:80px;
+  align-items:end;
+}
+.process-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:0.5px solid var(--line2);
+}
+.step{
+  padding:40px 32px;
+  border-right:0.5px solid var(--line2);
+  position:relative;
+  transition:background 0.3s;
+}
 .step:last-child{border-right:none}
-.step-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);margin-bottom:28px;letter-spacing:0.15em}
-.step-title{font-size:15px;font-weight:500;margin-bottom:10px;color:var(--ink)}
-.step-text{font-size:12px;font-weight:300;color:var(--ink3);line-height:1.8}
+.step:hover{background:var(--bg2)}
+.step-num{
+  font-family:'Playfair Display',serif;
+  font-size:10px;letter-spacing:0.3em;
+  color:var(--gold);opacity:0.7;
+  margin-bottom:32px;
+}
+.step-icon{
+  width:36px;height:36px;
+  border:0.5px solid var(--line);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  color:var(--gold);
+}
+.step-title{
+  font-family:'Noto Serif JP',serif;
+  font-size:15px;font-weight:300;
+  margin-bottom:12px;color:var(--white);
+  letter-spacing:0.06em;
+}
+.step-text{font-size:12px;color:var(--muted);line-height:1.9;letter-spacing:0.02em}
 
-.plans-section{padding:96px 48px;border-bottom:0.5px solid var(--line)}
-.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--line);margin-top:64px}
-.plan{padding:44px 36px;border-right:0.5px solid var(--line);display:flex;flex-direction:column}
+/* ─── PLANS ─── */
+.plans-section{
+  padding:100px 56px;
+  border-bottom:0.5px solid var(--line2);
+}
+.plans-header{margin-bottom:72px}
+.plans-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:0.5px solid var(--line2);
+}
+.plan{
+  padding:48px 40px;
+  border-right:0.5px solid var(--line2);
+  display:flex;flex-direction:column;
+  position:relative;
+  transition:background 0.3s;
+}
 .plan:last-child{border-right:none}
-.plan.featured{background:var(--ink);color:var(--paper)}
-.plan-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:28px}
-.plan.featured .plan-tag{color:rgba(255,255,255,0.45)}
-.plan:not(.featured) .plan-tag{color:var(--ink3)}
-.plan-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:8px}
-.plan.featured .plan-name{color:var(--paper)}
-.plan:not(.featured) .plan-name{color:var(--ink)}
-.plan-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;line-height:1}
-.plan.featured .plan-price{color:var(--paper)}
-.plan:not(.featured) .plan-price{color:var(--ink)}
-.plan-mo{font-size:12px;margin-bottom:28px}
-.plan.featured .plan-mo{color:rgba(255,255,255,0.45)}
-.plan:not(.featured) .plan-mo{color:var(--ink3)}
-.plan-div{height:0.5px;margin-bottom:28px}
-.plan.featured .plan-div{background:rgba(255,255,255,0.15)}
-.plan:not(.featured) .plan-div{background:var(--line)}
-.plan-features{list-style:none;flex:1;margin-bottom:36px}
-.plan-features li{font-size:13px;font-weight:300;padding:8px 0;border-bottom:0.5px solid;display:flex;align-items:center;gap:10px}
-.plan.featured .plan-features li{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.1)}
-.plan:not(.featured) .plan-features li{color:var(--ink2);border-color:var(--line)}
-.check{width:14px;height:14px;flex-shrink:0}
-.plan.featured .check{color:rgba(255,255,255,0.5)}
-.plan:not(.featured) .check{color:var(--ink3)}
-.plan-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;padding:5px 12px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);margin-bottom:16px;text-transform:uppercase}
-.plan-cta{display:inline-block;text-align:center;padding:13px 24px;font-size:12px;letter-spacing:0.12em;text-decoration:none;transition:all 0.2s;font-family:'Noto Sans JP',sans-serif}
-.plan.featured .plan-cta{background:var(--paper);color:var(--ink)}
-.plan.featured .plan-cta:hover{background:rgba(255,255,255,0.85)}
-.plan:not(.featured) .plan-cta{border:0.5px solid var(--ink);color:var(--ink)}
-.plan:not(.featured) .plan-cta:hover{background:var(--ink);color:var(--paper)}
+.plan:hover:not(.featured){background:var(--bg2)}
+.plan.featured{
+  background:var(--surface);
+  border-right:0.5px solid var(--line2);
+}
+.plan.featured::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.plan-badge{
+  display:inline-block;
+  font-size:9px;letter-spacing:0.2em;
+  padding:5px 14px;
+  border:0.5px solid var(--gold);
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:20px;
+  width:fit-content;
+}
+.plan-tag{
+  font-size:9px;letter-spacing:0.25em;
+  color:var(--muted);text-transform:uppercase;
+  margin-bottom:6px;
+}
+.plan-name{
+  font-family:'Playfair Display',serif;
+  font-size:30px;font-weight:400;
+  color:var(--white);margin-bottom:6px;
+}
+.plan-price{
+  font-family:'Playfair Display',serif;
+  font-size:52px;font-weight:400;
+  color:var(--white);line-height:1;
+  letter-spacing:-0.02em;
+}
+.plan.featured .plan-price{color:var(--gold)}
+.plan-mo{font-size:11px;color:var(--muted);margin-bottom:32px;letter-spacing:0.08em}
+.plan-div{
+  height:0.5px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  margin-bottom:28px;opacity:0.4;
+}
+.plan-features{
+  list-style:none;flex:1;margin-bottom:36px;
+}
+.plan-features li{
+  font-size:12px;font-weight:300;color:var(--white2);
+  padding:10px 0;
+  border-bottom:0.5px solid var(--line2);
+  display:flex;align-items:center;gap:12px;
+  letter-spacing:0.03em;
+}
+.plan-features li:last-child{border-bottom:none}
+.check-icon{
+  width:16px;height:16px;flex-shrink:0;
+  color:var(--gold);opacity:0.8;
+}
+.plan-cta{
+  display:block;text-align:center;
+  padding:14px 24px;
+  font-size:11px;letter-spacing:0.18em;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:all 0.3s;
+  font-family:'Noto Sans JP',sans-serif;
+}
+.plan:not(.featured) .plan-cta{
+  border:0.5px solid var(--line2);
+  color:var(--muted);
+}
+.plan:not(.featured) .plan-cta:hover{
+  border-color:var(--gold);color:var(--gold);
+}
+.plan.featured .plan-cta{
+  background:var(--gold);color:var(--bg);
+}
+.plan.featured .plan-cta:hover{opacity:0.85}
 
-.cta-section{padding:120px 48px;background:var(--ink);text-align:center}
-.cta-pre{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:24px;text-transform:uppercase}
-.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;color:var(--paper);line-height:1.2;margin-bottom:16px}
-.cta-title em{font-style:italic;color:rgba(255,255,255,0.55)}
-.cta-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,0.45);margin-bottom:52px}
-.btn-white{display:inline-flex;align-items:center;gap:12px;background:var(--paper);color:var(--ink);font-size:13px;letter-spacing:0.12em;padding:16px 40px;text-decoration:none;transition:opacity 0.2s;font-family:'Noto Sans JP',sans-serif}
-.btn-white:hover{opacity:0.88}
+/* ─── CTA ─── */
+.cta-section{
+  padding:140px 56px;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.cta-section::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,169,110,0.08) 0%,transparent 70%),
+    var(--bg2);
+}
+.cta-section::after{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.cta-inner{position:relative;z-index:1}
+.cta-pre{
+  font-size:9px;letter-spacing:0.4em;
+  color:var(--gold);text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  margin-bottom:32px;
+}
+.cta-pre::before,.cta-pre::after{content:'';flex:0 0 40px;height:0.5px;background:var(--gold)}
+.cta-title{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(32px,4.5vw,64px);
+  font-weight:200;
+  color:var(--white);
+  line-height:1.5;
+  letter-spacing:0.06em;
+  margin-bottom:12px;
+}
+.cta-title em{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-weight:400;
+  color:var(--gold);
+}
+.cta-sub{
+  font-size:14px;font-weight:300;
+  color:var(--muted);margin-bottom:56px;
+  line-height:2;letter-spacing:0.04em;
+}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--gold);color:var(--bg);
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  padding:18px 48px;text-decoration:none;
+  transition:all 0.3s;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+}
+.btn-cta:hover{background:var(--gold2)}
 
-footer{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-top:0.5px solid var(--line)}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;letter-spacing:0.15em}
-.footer-copy{font-size:11px;color:var(--ink3);letter-spacing:0.08em}
+/* ─── FOOTER ─── */
+footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 56px;
+  border-top:0.5px solid var(--line2);
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:400;
+  color:var(--white);letter-spacing:0.12em;
+}
+.footer-logo span{color:var(--gold)}
+.footer-links{display:flex;gap:32px;align-items:center}
+.footer-links a{
+  font-size:10px;letter-spacing:0.15em;
+  color:var(--muted);text-decoration:underline;
+  text-transform:uppercase;transition:color 0.25s;
+}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:10px;color:var(--muted);letter-spacing:0.1em}
 
-@media(max-width:860px){
+/* ─── MOBILE ─── */
+@media(max-width:900px){
   nav{padding:20px 24px}
   .nav-links{display:none}
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:48px 24px;border-right:none;border-bottom:0.5px solid var(--line)}
-  .hero-right{padding:36px 24px}
-  .features{grid-template-columns:1fr}
-  .feat{border-right:none;border-bottom:0.5px solid var(--line);padding:36px 24px}
+  .hero-left{padding:120px 24px 60px;border-right:none;border-bottom:0.5px solid var(--line2)}
+  .hero-right{padding:56px 24px}
+  .features-section{padding:72px 24px}
+  .features-header{grid-template-columns:1fr;gap:24px;margin-bottom:48px}
+  .features-grid{grid-template-columns:1fr}
+  .feat{border-right:none;border-bottom:0.5px solid var(--line2)}
   .feat:last-child{border-bottom:none}
-  .process-section,.plans-section,.cta-section{padding:64px 24px}
+  .portfolio-header{flex-direction:column;padding:0 24px 40px;gap:16px}
+  .portfolio-note{text-align:left;max-width:100%}
+  .portfolio-grid{grid-template-columns:1fr}
+  .work-card{border-right:none;border-bottom:0.5px solid var(--line2)}
+  .device-frame{height:360px}
+  .process-section,.plans-section,.cta-section{padding:72px 24px}
+  .process-header{grid-template-columns:1fr}
   .process-grid{grid-template-columns:1fr 1fr}
-  .step{border-bottom:0.5px solid var(--line)}
+  .step{border-bottom:0.5px solid var(--line2)}
   .step:nth-child(2n){border-right:none}
   .plans-grid{grid-template-columns:1fr}
-  .plan{border-right:none;border-bottom:0.5px solid var(--line)}
-  .plan.featured{border-color:rgba(255,255,255,0.15)}
+  .plan{border-right:none;border-bottom:0.5px solid var(--line2)}
   .plan:last-child{border-bottom:none}
-  footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center}
+  .portfolio-cta{padding:48px 24px}
+  footer{flex-direction:column;gap:16px;text-align:center;padding:24px}
+  .footer-links{flex-wrap:wrap;justify-content:center}
 }
-.hero-desc {
-  font-weight: 400; /* 300から400へ */
-  color: var(--ink2); /* 少しだけ濃い色へ */
-}
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3件横並び */
-  gap: 0;
-  border-bottom: 0.5px solid var(--line);
-  border-left: 0.5px solid var(--line);
-}
-
-.work-card {
-  padding: 48px;
-  border-right: 0.5px solid var(--line);
-  display: flex;
-  flex-direction: column;
-}
-
-.device-frame {
-  width: 100%;
-  height: 450px;
-  overflow-y: scroll;
-  border: 0.5px solid var(--line);
-  background: var(--paper2);
-  scrollbar-width: none; /* Firefoxスクロールバー非表示 */
-}
-.device-frame::-webkit-scrollbar {
-  display: none; /* Chrome/Safariスクロールバー非表示 */
-}
-
-.scrolling-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.work-info {
-  margin-top: 32px;
-}
-
-.work-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--ink3);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.work-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-weight: 300;
-  margin-bottom: 12px;
-}
-
-.work-text {
-  font-size: 12px;
-  color: var(--ink3);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-
-.btn-view-full {
-  display: inline-block;
-  font-size: 11px;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 0.5px solid var(--ink);
-  padding-bottom: 2px;
-  letter-spacing: 0.05em;
-  transition: opacity 0.2s;
-}
-
-.btn-view-full:hover {
-  opacity: 0.5;
-}
-
-/* スマホ表示の調整 */
-@media(max-width:860px){
-  .portfolio-grid { grid-template-columns: 1fr; border-left: none; }
-  .work-card { border-right: none; border-bottom: 0.5px solid var(--line); padding: 48px 24px; }
-  .device-frame { height: 350px; }
-}
-.btn-view-full {
-  display: inline-block;
-  background: var(--ink); /* 黒背景 */
-  color: var(--paper); /* 白文字 */
-  padding: 12px 24px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin-top: 16px;
-  border: 0.5px solid var(--ink);
-}
-
-.btn-view-full:hover {
-  background: transparent;
-  color: var(--ink);
-  opacity: 1;
-}
-.portfolio-grid {
-  display: grid;
-  /* repeat(3, 1fr) から repeat(auto-fit, minmax(320px, 1fr)) へ変更 */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-  gap: 0;
-  border-bottom: 0.5px solid var(--line);
-  border-left: 0.5px solid var(--line);
-}
-.keep-word {
-  display: inline-block;
-}
-
 </style>
 </head>
 <body>
 
-<nav>
-  <span class="nav-logo">Web Design</span>
+<!-- NAV -->
+<nav id="navbar">
+  <span class="nav-logo">Web<span>.</span>Design</span>
   <div class="nav-links">
     <a href="#features">特徴</a>
+    <a href="#portfolio">実績</a>
     <a href="#process">制作の流れ</a>
     <a href="#plans">プラン</a>
-    <a href="https://lin.ee/Z9vjxWH">お問い合わせ</a>
+    <a href="https://lin.ee/Z9vjxWH" class="nav-cta">無料相談</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-tag">Web Design &amp; Development</p>
-    <h1 class="hero-title">想いを、<br><em>Webで</em><br>形にする。</h1>
-    <div class="hero-bottom">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-text">Web Design &amp; Development</span>
+      </div>
+      <h1 class="hero-title">
+        想いを、<br>
+        <em>Web</em>で<br>
+        形にする。
+        <span class="sub-line">— あなたのビジネスのための、<br>&emsp;&ensp;オーダーメイドサイト</span>
+      </h1>
+    </div>
+    <div class="hero-bottom reveal">
       <p class="hero-desc">
-  <span class="keep-word">何を伝えるべきか、</span><br>
-  <span class="keep-word">一緒に考えるところから</span><span class="keep-word">始めましょう。</span><br>
-  <span class="keep-word">丁寧なヒアリングで、</span>
-  <span class="keep-word">あなたのビジネスに寄り添った</span>
-  <span class="keep-word">オーダーメイドのサイトを、</span>
-  <span class="keep-word">驚きの低価格でお届けします。</span>
-</p>
-      <a href="https://lin.ee/Z9vjxWH" class="btn-primary">無料相談はこちら →</a>
+        何を伝えるべきか、一緒に考えるところから始めましょう。<br>
+        丁寧なヒアリングで、あなたのビジネスに寄り添った<br>
+        オーダーメイドのサイトを、驚きの低価格でお届けします。
+      </p>
+      <a href="https://lin.ee/Z9vjxWH" class="btn-primary">
+        <span>無料相談はこちら</span>
+        <span>→</span>
+      </a>
     </div>
   </div>
   <div class="hero-right">
-    <p class="price-tag">制作費・特別価格</p>
-    <p class="price-strike">通常 ¥30,000</p>
-    <p class="price-big">¥8,000</p>
-    <p class="price-note">税別 / 初回限定</p>
-<p style="font-size: 10px; color: var(--ink3); margin-top: 8px;">※制作実績への掲載にご協力いただける方限定</p>
-    <div class="hero-rule"></div>
-    <div class="hero-stats">
-      <div><span class="stat-num">3</span><span class="stat-label">月額プラン</span></div>
-      <div><span class="stat-num">73%</span><span class="stat-label">コスト削減</span></div>
+    <div class="reveal">
+      <p class="price-label">制作費・特別価格</p>
+      <p class="price-old">通常 ¥30,000</p>
+      <p class="price-main"><sup>¥</sup>8,000</p>
+      <p class="price-sub">税別 / 初回限定</p>
+      <p class="price-note">
+        ※制作実績への掲載にご協力いただける方限定<br>
+        通常価格より <strong style="color:var(--gold)">73%</strong> オフ
+      </p>
+    </div>
+    <div class="hero-divider reveal reveal-delay-1"></div>
+    <div class="hero-stats reveal reveal-delay-2">
+      <div>
+        <span class="stat-num">3</span>
+        <span class="stat-label">月額プラン</span>
+      </div>
+      <div>
+        <span class="stat-num">73%</span>
+        <span class="stat-label">コスト削減</span>
+      </div>
+      <div>
+        <span class="stat-num">3〜</span>
+        <span class="stat-label">日で納品</span>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">HTML &amp; CSS ◆</span>
-    <span class="marquee-item">Web Design ◆</span>
-    <span class="marquee-item">Low Price ◆</span>
-    <span class="marquee-item">Server &amp; Domain ◆</span>
-    <span class="marquee-item">Monthly Support ◆</span>
-    <span class="marquee-item">Content Update ◆</span>
-    <span class="marquee-item">HTML &amp; CSS ◆</span>
-    <span class="marquee-item">Web Design ◆</span>
-    <span class="marquee-item">Low Price ◆</span>
-    <span class="marquee-item">Server &amp; Domain ◆</span>
-    <span class="marquee-item">Monthly Support ◆</span>
-    <span class="marquee-item">Content Update ◆</span>
+    <span class="marquee-item">HTML &amp; CSS <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Web Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Low Price <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Server &amp; Domain <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Monthly Support <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Bespoke Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Fast Delivery <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Content Update <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">HTML &amp; CSS <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Web Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Low Price <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Server &amp; Domain <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Monthly Support <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Bespoke Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Fast Delivery <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Content Update <span class="marquee-sep">◆</span></span>
   </div>
 </div>
 
-<section class="features" id="features">
-  <p class="feat-text">
-  <span class="keep-word">通常3万円の制作費を</span>
-  <span class="keep-word">わずか8,000円でご提供。</span><br>
-  <span class="keep-word">品質は一切妥協しません。</span>
-</p>
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-header">
+    <div class="reveal">
+      <div class="section-tag">Features</div>
+      <h2 class="section-title-en">Why Choose</h2>
+      <p class="section-title-jp">選ばれる理由</p>
+    </div>
+    <p class="features-intro reveal reveal-delay-1">
+      通常3万円の制作費をわずか8,000円でご提供。<br>
+      品質は一切妥協しません。<br>
+      想いを丁寧に形にする、それが私たちのスタイルです。
+    </p>
   </div>
-  <div class="feat">
-    <p class="feat-num">02</p>
-    <h3 class="feat-title">徹底したヒアリングと<br>柔軟なオーダーメイド</h3>
-    <p class="feat-text">
-  <span class="keep-word">お客様のこだわりや</span>
-  <span class="keep-word">理想のイメージを丁寧に反映。</span><br>
-  <span class="keep-word">進捗を都度共有しながら、</span>
-  <span class="keep-word">二人三脚でサイトを</span><span class="keep-word">作り上げます。</span>
-</p>
-  </div>
-  <div class="feat">
-    <p class="feat-num">03</p>
-    <h3 class="feat-title">制作後も<br>安心サポート</h3>
-    <p class="feat-text">
-  <span class="keep-word">月額プランで</span>
-  <span class="keep-word">サーバー・ドメイン管理から</span><br>
-  <span class="keep-word">コンテンツ更新まで</span>
-  <span class="keep-word">継続サポートします。</span>
-</p>
+  <div class="features-grid">
+    <div class="feat reveal">
+      <div class="feat-num" data-num="01">01</div>
+      <h3 class="feat-title">圧倒的な<br>コストパフォーマンス</h3>
+      <p class="feat-text">通常3万円の制作費をわずか8,000円でご提供。品質は一切妥協しません。制作実績への掲載にご協力いただけることで、この価格を実現しました。</p>
+    </div>
+    <div class="feat reveal reveal-delay-1">
+      <div class="feat-num" data-num="02">02</div>
+      <h3 class="feat-title">徹底したヒアリングと<br>柔軟なオーダーメイド</h3>
+      <p class="feat-text">お客様のこだわりや理想のイメージを丁寧に反映。進捗を都度共有しながら、二人三脚でサイトを作り上げます。</p>
+    </div>
+    <div class="feat reveal reveal-delay-2">
+      <div class="feat-num" data-num="03">03</div>
+      <h3 class="feat-title">制作後も<br>安心サポート</h3>
+      <p class="feat-text">月額プランでサーバー・ドメイン管理からコンテンツ更新まで継続サポートします。公開後も一切ご不安のないよう寄り添います。</p>
+    </div>
   </div>
 </section>
+
+<!-- PORTFOLIO -->
 <section class="portfolio-section" id="portfolio">
-  <div class="section-header" style="padding: 96px 48px 0;">
-    <h2 class="section-en">Portfolio</h2>
-    <span class="section-jp">制作実績</span>
+  <div class="portfolio-header">
+    <div class="reveal">
+      <div class="section-tag">Portfolio</div>
+      <h2 class="section-title-en">Selected Works</h2>
+      <p class="section-title-jp">制作実績</p>
+    </div>
+    <p class="portfolio-note reveal reveal-delay-1">
+      「ただ作る」のではなく、<br>
+      あなたの想いや集客の悩みに<br>
+      徹底的に寄り添います。
+    </p>
   </div>
 
   <div class="portfolio-grid">
-    <div class="work-card">
+    <div class="work-card reveal">
       <div class="device-frame">
-        <img src="imagesLP/lp2.jpg" alt="実績1" class="scrolling-img">
+        <img src="imagesLP/lp2.jpg" alt="Tem Nails">
+        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
-        <p class="work-tag">Nail Salon / LP</p>
+        <p class="work-tag">Nail Salon / Landing Page</p>
         <h3 class="work-title">Tem Nails</h3>
-        <p class="work-text">
-  <span class="keep-word">クライアント様の</span>
-  <span class="keep-word">こだわりである</span>
-  <span class="keep-word">店内の色合いを</span>
-  <span class="keep-word">再現し、</span>
-  <span class="keep-word">一目で「オシャレ」と</span>
-  <span class="keep-word">感じる世界観を構築。</span><br>
-  <span class="keep-word">直感的に予約ができる</span>
-  <span class="keep-word">導線設計で、</span><br>
-  <span class="keep-word">Instagramからの流入を</span>
-  <span class="keep-word">無駄にしません。</span>
-</p>
-        <a href="https://temnails.com/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+        <p class="work-text">クライアント様のこだわりである店内の色合いを再現し、一目で「オシャレ」と感じる世界観を構築。直感的に予約ができる導線設計で、Instagramからの流入を無駄にしません。</p>
+        <a href="https://temnails.com/" target="_blank" class="btn-view">全体を詳しく見る →</a>
       </div>
     </div>
 
-    <div class="work-card">
+    <div class="work-card reveal reveal-delay-1">
       <div class="device-frame">
-        <img src="imagesLP/lp1.jpg" alt="実績2" class="scrolling-img">
+        <img src="imagesLP/lp1.jpg" alt="Luana">
+        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
-        <p class="work-tag">head spa / HP</p>
+        <p class="work-tag">Head Spa / Website</p>
         <h3 class="work-title">Luana</h3>
-        <p class="work-text">
-  <span class="keep-word">「ハワイ感×高級感」という</span>
-  <span class="keep-word">ご要望を、</span><br>
-  <span class="keep-word">上質なフォントと</span>
-  <span class="keep-word">余白で表現。</span><br>
-  <span class="keep-word">非日常的な</span>
-  <span class="keep-word">リラックス体験を</span>
-  <span class="keep-word">想起させるデザインに加え、</span><br>
-  <span class="keep-word">迷わせない</span>
-  <span class="keep-word">お問い合わせ動線を</span>
-  <span class="keep-word">徹底しました。</span>
-</p>
-        <a href="https://mumei-web.github.io/Luana.salon/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+        <p class="work-text">「ハワイ感×高級感」というご要望を、上質なフォントと余白で表現。非日常的なリラックス体験を想起させるデザインに加え、迷わせないお問い合わせ動線を徹底しました。</p>
+        <a href="https://mumei-web.github.io/Luana.salon/" target="_blank" class="btn-view">全体を詳しく見る →</a>
       </div>
     </div>
 
-    <div class="work-card">
+    <div class="work-card reveal reveal-delay-2">
       <div class="device-frame">
-        <img src="imagesLP/lp4.jpg" alt="実績3" class="scrolling-img">
+        <img src="imagesLP/lp4.jpg" alt="Baby Item">
+        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
-        <p class="work-tag">rental items / HP</p>
-        <h3 class="work-title">baby item</h3>
-        <p class="work-text">
-  <span class="keep-word">老若男女どなたでも</span>
-  <span class="keep-word">見やすいレイアウト。</span><br>
-  <span class="keep-word">検討時に重要な</span>
-  <span class="keep-word">「料金表」を</span>
-  <span class="keep-word">細かく丁寧に整理し、</span><br>
-  <span class="keep-word">不安を解消することで、</span>
-  <span class="keep-word">レンタルへのハードルを</span>
-  <span class="keep-word">下げる工夫を凝らしました。</span>
-</p>
-        <a href="https://babyitem02.com/" target="_blank" class="btn-view-full">全体を詳しく見る ↗</a>
+        <p class="work-tag">Rental Items / Website</p>
+        <h3 class="work-title">Baby Item</h3>
+        <p class="work-text">老若男女どなたでも見やすいレイアウト。検討時に重要な「料金表」を細かく丁寧に整理し、不安を解消することでレンタルへのハードルを下げる工夫を凝らしました。</p>
+        <a href="https://babyitem02.com/" target="_blank" class="btn-view">全体を詳しく見る →</a>
       </div>
     </div>
   </div>
-  <div style="text-align: center; padding: 48px 24px; border-bottom: 0.5px solid var(--line);">
-  <p style="font-size: 14px; color: var(--ink2); line-height: 2;">
-    <span class="keep-word">「ただ作る」のではなく、</span>
-    <span class="keep-word">あなたの想いや</span>
-    <span class="keep-word">集客の悩みに</span>
-    <span class="keep-word">徹底的に寄り添います。</span><br>
-    <span class="keep-word">予約導線、</span>
-    <span class="keep-word">料金の見せ方、</span>
-    <span class="keep-word">色のニュアンス。</span><br>
-    <span class="keep-word">どんな小さなこだわりも</span>
-    <span class="keep-word">形にします。</span>
-  </p>
-</div>
+
+  <div class="portfolio-cta reveal">
+    <p>
+      予約導線、料金の見せ方、色のニュアンス。<br>
+      <em>どんな小さなこだわりも</em>、形にします。
+    </p>
+  </div>
 </section>
+
+<!-- PROCESS -->
 <section class="process-section" id="process">
-  <div class="section-header">
-    <h2 class="section-en">Process</h2>
-    <span class="section-jp">制作の流れ</span>
+  <div class="process-header">
+    <div class="reveal">
+      <div class="section-tag">Process</div>
+      <h2 class="section-title-en">How We Work</h2>
+      <p class="section-title-jp">制作の流れ</p>
+    </div>
+    <p class="reveal reveal-delay-1" style="font-size:14px;color:var(--muted);line-height:2;letter-spacing:0.04em">
+      LINEで気軽にご相談いただければ、<br>
+      ヒアリングから公開・サポートまで<br>
+      すべてオンラインで完結します。
+    </p>
   </div>
   <div class="process-grid">
-    <div class="step">
-      <p class="step-num">STEP 01</p>
+    <div class="step reveal">
+      <p class="step-num">STEP — 01</p>
+      <div class="step-icon">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      </div>
       <p class="step-title">ヒアリング</p>
-      <p class="step-text">
-        <span class="keep-word">目的・ターゲット・</span><span class="keep-word">イメージを丁寧にお聞きし、</span>
-        <span class="keep-word">最適なプランを</span><span class="keep-word">ご提案します。</span>
-      </p>
+      <p class="step-text">目的・ターゲット・イメージを丁寧にお聞きし、最適なプランをご提案します。</p>
     </div>
-    <div class="step">
-      <p class="step-num">STEP 02</p>
+    <div class="step reveal reveal-delay-1">
+      <p class="step-num">STEP — 02</p>
+      <div class="step-icon">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </div>
       <p class="step-title">デザイン・構築</p>
-      <p class="step-text">
-        <span class="keep-word">ヒアリング内容を<br>もとに、</span>
-        <span class="keep-word">プロ品質の</span><span class="keep-word">コーディングを<br>行います。</span><br>
-        <span class="keep-word">進捗を共有して、</span>
-        <span class="keep-word">理想のイメージに</span><span class="keep-word">近づけていきます。</span>
-      </p>
+      <p class="step-text">ヒアリング内容をもとにプロ品質のコーディングを行います。進捗を共有しながら理想に近づけます。</p>
     </div>
-    <div class="step">
-      <p class="step-num">STEP 03</p>
+    <div class="step reveal reveal-delay-2">
+      <p class="step-num">STEP — 03</p>
+      <div class="step-icon">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
       <p class="step-title">確認・修正</p>
-      <p class="step-text">
-        <span class="keep-word">仮公開ページで</span><span class="keep-word">ご確認いただき、</span><br>
-        <span class="keep-word">細部まで丁寧に</span><span class="keep-word">修正対応します。</span>
-      </p>
+      <p class="step-text">仮公開ページでご確認いただき、細部まで丁寧に修正対応します。</p>
     </div>
-    <div class="step">
-      <p class="step-num">STEP 04</p>
+    <div class="step reveal reveal-delay-3">
+      <p class="step-num">STEP — 04</p>
+      <div class="step-icon">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+      </div>
       <p class="step-title">公開・サポート</p>
-      <p class="step-text">
-        <span class="keep-word">本公開後も</span><span class="keep-word">月額プランで</span><span class="keep-word">継続サポート。</span><br>
-      
-      </p>
+      <p class="step-text">本公開後も月額プランで継続サポート。安心してビジネスに集中できます。</p>
     </div>
-</div>
   </div>
 </section>
 
+<!-- PLANS -->
 <section class="plans-section" id="plans">
-  <div class="section-header">
-    <h2 class="section-en">Plans</h2>
-    <span class="section-jp">月額サポートプラン</span>
+  <div class="plans-header reveal">
+    <div class="section-tag">Plans</div>
+    <h2 class="section-title-en">Monthly Support</h2>
+    <p class="section-title-jp">月額サポートプラン</p>
   </div>
   <div class="plans-grid">
-    <div class="plan">
+    <div class="plan reveal">
       <p class="plan-tag">Light Plan</p>
       <p class="plan-name">ライト</p>
       <p class="plan-price">¥3,000</p>
       <p class="plan-mo">/ 月（税別）</p>
       <div class="plan-div"></div>
       <ul class="plan-features">
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
       </ul>
       <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
     </div>
-    <div class="plan featured">
-      <div class="plan-badge">人気プラン</div>
+    <div class="plan featured reveal reveal-delay-1">
+      <div class="plan-badge">Most Popular</div>
       <p class="plan-tag">Standard Plan</p>
       <p class="plan-name">スタンダード</p>
       <p class="plan-price">¥5,000</p>
       <p class="plan-mo">/ 月（税別）</p>
       <div class="plan-div"></div>
       <ul class="plan-features">
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
       </ul>
       <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
     </div>
-    <div class="plan">
+    <div class="plan reveal reveal-delay-2">
       <p class="plan-tag">Premium Plan</p>
       <p class="plan-name">プレミアム</p>
       <p class="plan-price">¥10,000</p>
       <p class="plan-mo">/ 月（税別）</p>
       <div class="plan-div"></div>
       <ul class="plan-features">
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>画像・文章の新規作成</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>独自ドメインの管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>画像・文章の新規作成</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>独自ドメインの管理</li>
       </ul>
       <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
     </div>
   </div>
 </section>
 
+<!-- CTA -->
 <section class="cta-section">
-  <p class="cta-pre">Free Consultation</p>
-  <h2 class="cta-title">まずは、<em>気軽に</em><br>ご相談ください。</h2>
-  <p class="cta-sub">
-  <span class="keep-word">LINEからいつでも</span>
-  <span class="keep-word">お気軽にどうぞ。</span><br>
-  <span class="keep-word">お見積もりは無料です。</span>
-</p>
-  <a href="https://lin.ee/Z9vjxWH" class="btn-white">LINEで相談する →</a>
+  <div class="cta-inner reveal">
+    <p class="cta-pre">Free Consultation</p>
+    <h2 class="cta-title">まずは、<em>気軽に</em><br>ご相談ください。</h2>
+    <p class="cta-sub">
+      LINEからいつでもお気軽にどうぞ。<br>
+      お見積もりは無料です。
+    </p>
+    <a href="https://lin.ee/Z9vjxWH" class="btn-cta">LINEで相談する →</a>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <span class="footer-logo">Web Design</span>
-  <a href="tokusho.html" style="font-size: 11px; color: var(--ink3); text-decoration: underline;">特定商取引法に基づく表記</a>
+  <span class="footer-logo">Web<span>.</span>Design</span>
+  <div class="footer-links">
+    <a href="tokusho.html">特定商取引法に基づく表記</a>
+  </div>
   <span class="footer-copy">&copy; 2026 Web Design Service</span>
 </footer>
 
+<script>
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+},{passive:true});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
