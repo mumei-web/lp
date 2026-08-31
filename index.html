@@ -3,711 +3,585 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Web Design — 想いを、Webで形にする。</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<title>Web Design — 想いを、誠実にWebで形にする。</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --bg:        #0a0a0a;
-  --bg2:       #111111;
-  --bg3:       #161616;
-  --surface:   #1c1c1c;
-  --surface2:  #232323;
-  --gold:      #c9a96e;
-  --gold2:     #e8d5a3;
-  --gold-dim:  rgba(201,169,110,0.15);
-  --white:     #f0ece4;
-  --white2:    #d4cfc6;
-  --muted:     #6b6660;
-  --line:      rgba(201,169,110,0.18);
-  --line2:     rgba(255,255,255,0.07);
-  --accent:    #c9a96e;
+  --bg:        #F7F8F6;
+  --bg-soft:   #EFF2F0;
+  --navy:      #17324D;
+  --navy-mid:  #24486B;
+  --navy-soft: #E7ECEF;
+  --navy-wash: rgba(23,50,77,0.06);
+  --white:     #FFFFFF;
+  --text:      #333333;
+  --muted:     #5B6067;
+  --line:      #E1E4E1;
+  --line-soft: #ECEEEB;
+  --accent:    #C48B3D; /* warm secondary accent, used sparingly */
 }
 
 html{scroll-behavior:smooth}
 body{
   font-family:'Noto Sans JP',sans-serif;
   background:var(--bg);
-  color:var(--white);
-  line-height:1.7;
+  color:var(--text);
+  line-height:1.8;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* ─── NOISE TEXTURE OVERLAY ─── */
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:9999;
-  opacity:0.6;
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
 }
 
-/* ─── SCROLL ANIMATIONS ─── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+/* ─── SCROLL REVEAL (single orchestrated hero moment; rest is static for calm, readable feel) ─── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:0.1s}
-.reveal-delay-2{transition-delay:0.2s}
-.reveal-delay-3{transition-delay:0.3s}
-.reveal-delay-4{transition-delay:0.4s}
 
 /* ─── NAV ─── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  padding:22px 56px;
-  border-bottom:0.5px solid transparent;
-  transition:all 0.5s ease;
+  padding:20px 56px;
+  background:rgba(247,248,246,0.85);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color 0.3s ease,box-shadow 0.3s ease;
 }
 nav.scrolled{
-  background:rgba(10,10,10,0.92);
-  backdrop-filter:blur(20px);
   border-bottom-color:var(--line);
+  box-shadow:0 1px 0 rgba(23,50,77,0.03);
 }
 .nav-logo{
-  font-family:'Playfair Display',serif;
-  font-size:18px;font-weight:400;
-  letter-spacing:0.12em;
-  color:var(--white);
+  font-family:'Zen Old Mincho',serif;
+  font-size:19px;font-weight:500;
+  letter-spacing:0.06em;
+  color:var(--navy);
 }
-.nav-logo span{color:var(--gold)}
-.nav-links{display:flex;gap:40px;align-items:center}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px;align-items:center}
 .nav-links a{
-  font-size:11px;letter-spacing:0.18em;
-  color:var(--muted);text-decoration:none;
-  text-transform:uppercase;
-  transition:color 0.25s;
+  font-size:13.5px;letter-spacing:0.02em;
+  color:var(--navy);text-decoration:none;
+  transition:color 0.2s;
 }
-.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover{color:var(--accent)}
 .nav-cta{
-  font-size:11px;letter-spacing:0.18em;
-  color:var(--bg)!important;
-  background:var(--gold);
-  padding:10px 22px;
-  text-transform:uppercase;
-  transition:opacity 0.25s!important;
+  font-size:13.5px;font-weight:500;
+  color:var(--white)!important;
+  background:var(--navy);
+  padding:11px 24px;
+  border-radius:6px;
+  transition:background 0.2s!important;
 }
-.nav-cta:hover{opacity:0.85;color:var(--bg)!important}
+.nav-cta:hover{background:var(--navy-mid);color:var(--white)!important}
 
 /* ─── HERO ─── */
 .hero{
   min-height:100vh;
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1.05fr 0.95fr;
   position:relative;
-  overflow:hidden;
-}
-.hero::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 .hero-left{
-  padding:160px 56px 80px;
+  padding:168px 64px 88px;
   display:flex;flex-direction:column;justify-content:space-between;
-  border-right:0.5px solid var(--line);
-  position:relative;
-  z-index:2;
 }
 .hero-eyebrow{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:56px;
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:32px;
+  padding:7px 16px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  width:fit-content;
+  background:var(--white);
 }
-.hero-eyebrow::before{
-  content:'';width:36px;height:0.5px;background:var(--gold);
-}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
 .hero-eyebrow-text{
-  font-size:10px;letter-spacing:0.3em;
-  color:var(--gold);text-transform:uppercase;
+  font-size:12.5px;letter-spacing:0.04em;
+  color:var(--navy);
 }
 .hero-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(44px,5.5vw,78px);
-  font-weight:200;
-  line-height:1.18;
-  letter-spacing:0.04em;
-  color:var(--white);
-}
-.hero-title em{
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-weight:400;
-  color:var(--gold);
-  font-size:1.08em;
+  font-family:'Zen Old Mincho',serif;
+  font-size:clamp(34px,4.6vw,58px);
+  font-weight:500;
+  line-height:1.55;
   letter-spacing:0.02em;
+  color:var(--navy);
 }
 .hero-title .sub-line{
   display:block;
-  font-size:0.62em;
-  font-weight:300;
-  color:var(--white2);
-  letter-spacing:0.06em;
-  margin-top:20px;
-}
-.hero-bottom{margin-top:auto;padding-top:56px}
-.hero-desc{
-  font-size:14px;font-weight:300;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:0.35em;
+  font-weight:400;
   color:var(--muted);
-  line-height:2;max-width:340px;
-  margin-bottom:40px;
   letter-spacing:0.03em;
+  margin-top:22px;
+  line-height:2;
+}
+.hero-bottom{margin-top:auto;padding-top:48px}
+.hero-desc{
+  font-size:15px;font-weight:400;
+  color:var(--text);
+  line-height:2.05;max-width:400px;
+  margin-bottom:36px;
 }
 .btn-primary{
-  display:inline-flex;align-items:center;gap:14px;
-  background:var(--gold);color:var(--bg);
-  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-  padding:16px 36px;
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--navy);color:var(--white);
+  font-size:14px;font-weight:500;
+  padding:16px 32px;
+  border-radius:8px;
   text-decoration:none;
-  transition:all 0.3s ease;
-  font-family:'Noto Sans JP',sans-serif;
-  font-weight:400;
-  position:relative;overflow:hidden;
+  transition:background 0.25s ease,transform 0.15s ease;
 }
-.btn-primary::before{
-  content:'';
-  position:absolute;inset:0;
-  background:var(--white);
-  transform:translateX(-101%);
-  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
-}
-.btn-primary:hover::before{transform:translateX(0)}
-.btn-primary:hover{color:var(--bg)}
-.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{background:var(--navy-mid);transform:translateY(-1px)}
 
 /* hero right panel */
 .hero-right{
-  padding:160px 56px 80px;
+  padding:168px 56px 88px;
   display:flex;flex-direction:column;
-  justify-content:flex-end;
-  background:var(--bg2);
-  position:relative;
-  overflow:hidden;
+  justify-content:center;
+  background:var(--navy-soft);
+  border-left:1px solid var(--line);
 }
-.hero-right::before{
-  content:'';
-  position:absolute;
-  top:-200px;right:-200px;
-  width:600px;height:600px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(201,169,110,0.06) 0%,transparent 70%);
+.price-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:44px 40px;
+  box-shadow:0 12px 32px rgba(23,50,77,0.06);
 }
 .price-label{
-  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:12px;
+  font-size:13px;font-weight:500;
+  color:var(--navy);margin-bottom:18px;
 }
-.price-old{
-  font-size:13px;color:var(--muted);
-  text-decoration:line-through;margin-bottom:6px;
-}
-.price-main{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(72px,8vw,108px);
-  font-weight:400;line-height:0.9;
-  color:var(--white);
-  letter-spacing:-0.02em;
-}
-.price-main sup{font-size:0.3em;vertical-align:super;color:var(--gold)}
-.price-sub{
-  font-size:12px;color:var(--muted);
-  letter-spacing:0.1em;margin-top:10px;
+.price-compare{
+  display:flex;align-items:baseline;gap:10px;
   margin-bottom:4px;
 }
+.price-compare-label{font-size:12.5px;color:var(--muted)}
+.price-compare-val{
+  font-size:14px;color:var(--muted);
+  text-decoration:line-through;
+}
+.price-main-row{display:flex;align-items:baseline;gap:6px;margin-top:6px}
+.price-main{
+  font-family:'Zen Old Mincho',serif;
+  font-size:clamp(52px,5.5vw,72px);
+  font-weight:500;line-height:1;
+  color:var(--navy);
+  letter-spacing:0;
+}
+.price-main sup{font-size:0.32em;vertical-align:super;color:var(--navy)}
+.price-unit{font-size:13px;color:var(--muted)}
+.price-sub{
+  font-size:12.5px;color:var(--muted);
+  margin-top:10px;
+}
 .price-note{
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.06em;
-  border-left:2px solid var(--gold);
-  padding-left:12px;
-  line-height:1.6;
-  margin-top:16px;
+  font-size:12.5px;color:var(--text);
+  background:var(--navy-wash);
+  border-radius:8px;
+  padding:14px 16px;
+  line-height:1.85;
+  margin-top:24px;
 }
-.hero-divider{
-  width:100%;height:0.5px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-  margin:36px 0;
-}
-.hero-stats{display:flex;gap:40px}
+.price-note strong{color:var(--navy)}
+.hero-stats{display:flex;gap:36px;margin-top:32px;padding-top:28px;border-top:1px solid var(--line)}
 .stat-num{
-  font-family:'Playfair Display',serif;
-  font-size:38px;font-weight:400;
-  color:var(--gold);display:block;
+  font-family:'Zen Old Mincho',serif;
+  font-size:30px;font-weight:500;
+  color:var(--navy);display:block;
   line-height:1;
 }
 .stat-label{
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.12em;margin-top:6px;
+  font-size:11.5px;color:var(--muted);
+  margin-top:6px;
   display:block;
 }
 
 /* ─── MARQUEE ─── */
 .marquee-wrap{
-  padding:16px 0;overflow:hidden;
-  background:var(--surface);
-  border-top:0.5px solid var(--line);
-  border-bottom:0.5px solid var(--line);
+  padding:14px 0;overflow:hidden;
+  background:var(--navy);
 }
 .marquee-track{
   display:flex;white-space:nowrap;
-  animation:marquee 28s linear infinite;
+  animation:marquee 32s linear infinite;
 }
 .marquee-item{
-  font-size:10px;letter-spacing:0.25em;
-  color:var(--gold);padding:0 44px;
-  text-transform:uppercase;
-  opacity:0.7;
+  font-size:12.5px;letter-spacing:0.04em;
+  color:var(--white);padding:0 36px;
+  opacity:0.92;
 }
-.marquee-sep{color:var(--gold);opacity:0.4}
+.marquee-sep{color:var(--accent);opacity:0.8}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ─── SECTION HEADER ─── */
 .section-tag{
-  font-size:9px;letter-spacing:0.35em;
-  color:var(--gold);text-transform:uppercase;
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:20px;
+  display:inline-block;
+  font-size:12.5px;font-weight:500;
+  color:var(--accent);
+  margin-bottom:14px;
 }
-.section-tag::before{content:'';width:28px;height:0.5px;background:var(--gold)}
 .section-title-en{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(36px,4vw,60px);
-  font-weight:400;color:var(--white);
-  letter-spacing:-0.01em;margin-bottom:8px;
+  font-family:'Zen Old Mincho',serif;
+  font-size:clamp(28px,3.2vw,42px);
+  font-weight:500;color:var(--navy);
+  letter-spacing:0.01em;margin-bottom:8px;
 }
 .section-title-jp{
-  font-size:13px;color:var(--muted);
-  letter-spacing:0.12em;margin-bottom:0;
+  font-size:14px;color:var(--muted);
+  margin-bottom:0;
 }
 
 /* ─── FEATURES ─── */
 .features-section{
-  padding:100px 56px;
-  border-bottom:0.5px solid var(--line2);
+  padding:110px 56px;
 }
 .features-header{
   display:grid;grid-template-columns:1fr 1fr;
   gap:48px;align-items:end;
-  margin-bottom:72px;
-  padding-bottom:64px;
-  border-bottom:0.5px solid var(--line2);
+  margin-bottom:64px;
 }
 .features-intro{
-  font-size:15px;font-weight:300;
-  color:var(--white2);
-  line-height:2;
-  letter-spacing:0.04em;
+  font-size:15px;font-weight:400;
+  color:var(--text);
+  line-height:2.05;
 }
 .features-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:0;
+  gap:24px;
 }
 .feat{
-  padding:44px 40px;
-  border-right:0.5px solid var(--line2);
-  position:relative;
-  transition:background 0.3s;
+  padding:40px 32px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
+  transition:box-shadow 0.25s ease,transform 0.25s ease;
 }
-.feat:last-child{border-right:none}
-.feat::after{
-  content:'';
-  position:absolute;bottom:0;left:0;
-  width:0;height:1px;
-  background:var(--gold);
-  transition:width 0.4s ease;
-}
-.feat:hover::after{width:100%}
-.feat:hover{background:var(--bg2)}
-.feat-num{
-  font-family:'Playfair Display',serif;
-  font-size:56px;font-weight:400;
-  color:var(--gold-dim);
-  line-height:1;
-  margin-bottom:28px;
-  position:relative;
-}
-.feat-num::after{
-  content:attr(data-num);
-  position:absolute;
-  top:2px;left:2px;
-  font-size:56px;
-  color:transparent;
-  -webkit-text-stroke:0.5px var(--gold);
-  opacity:0.35;
+.feat:hover{box-shadow:0 14px 30px rgba(23,50,77,0.08);transform:translateY(-3px)}
+.feat-icon{
+  width:44px;height:44px;
+  border-radius:10px;
+  background:var(--navy-wash);
+  color:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
 }
 .feat-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:19px;font-weight:300;
+  font-family:'Zen Old Mincho',serif;
+  font-size:19px;font-weight:500;
   line-height:1.6;
-  margin-bottom:18px;
-  color:var(--white);
-  letter-spacing:0.04em;
+  margin-bottom:14px;
+  color:var(--navy);
 }
 .feat-text{
-  font-size:13px;font-weight:300;
-  color:var(--muted);line-height:1.95;
-  letter-spacing:0.02em;
+  font-size:13.5px;font-weight:400;
+  color:var(--muted);line-height:2;
 }
 
 /* ─── PORTFOLIO ─── */
 .portfolio-section{
-  padding:100px 0 0;
-  border-bottom:0.5px solid var(--line2);
+  padding:110px 0;
+  background:var(--navy-soft);
 }
 .portfolio-header{
   padding:0 56px 56px;
   display:flex;align-items:flex-end;justify-content:space-between;
+  max-width:1400px;margin:0 auto;
 }
 .portfolio-note{
-  font-size:12px;color:var(--muted);
-  max-width:280px;line-height:1.9;
-  letter-spacing:0.04em;
+  font-size:13.5px;color:var(--muted);
+  max-width:300px;line-height:2;
   text-align:right;
 }
 .portfolio-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
+  gap:28px;
+  padding:0 56px;
+  max-width:1400px;margin:0 auto;
 }
 .work-card{
-  border-right:0.5px solid var(--line2);
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
   display:flex;flex-direction:column;
-  position:relative;
   overflow:hidden;
+  transition:box-shadow 0.25s ease,transform 0.25s ease;
 }
-.work-card:last-child{border-right:none}
+.work-card:hover{box-shadow:0 16px 36px rgba(23,50,77,0.1);transform:translateY(-3px)}
 
 .device-frame{
-  width:100%;height:480px;
+  width:100%;height:400px;
   overflow:hidden;
   position:relative;
-  background:var(--bg2);
+  background:var(--bg-soft);
 }
 .device-frame img{
   width:100%;height:auto;
   display:block;
-  transition:transform 12s linear;
+  transition:transform 10s linear;
 }
 .work-card:hover .device-frame img{
-  transform:translateY(calc(-100% + 480px));
-}
-.device-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 60%,var(--bg) 100%);
-  pointer-events:none;
-  z-index:2;
+  transform:translateY(calc(-100% + 400px));
 }
 
 .work-info{
-  padding:32px 36px 40px;
-  background:var(--bg);
+  padding:28px 28px 32px;
   flex:1;
   display:flex;flex-direction:column;
 }
 .work-tag{
-  font-size:9px;letter-spacing:0.3em;
-  color:var(--gold);text-transform:uppercase;
+  font-size:11.5px;font-weight:500;
+  color:var(--accent);
   margin-bottom:10px;
 }
 .work-title{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:400;
-  margin-bottom:14px;
-  color:var(--white);
-  letter-spacing:0.01em;
+  font-family:'Zen Old Mincho',serif;
+  font-size:22px;font-weight:500;
+  margin-bottom:12px;
+  color:var(--navy);
 }
 .work-text{
-  font-size:12px;color:var(--muted);
-  line-height:1.95;flex:1;
-  letter-spacing:0.03em;
-  margin-bottom:28px;
+  font-size:13px;color:var(--muted);
+  line-height:2;flex:1;
+  margin-bottom:22px;
 }
 .btn-view{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:10px;letter-spacing:0.2em;
-  color:var(--gold);text-decoration:none;
-  text-transform:uppercase;
-  border-bottom:0.5px solid var(--gold);
-  padding-bottom:4px;
-  transition:gap 0.25s,opacity 0.25s;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:500;
+  color:var(--navy);text-decoration:none;
+  border-bottom:1.5px solid var(--navy);
+  padding-bottom:3px;
+  transition:gap 0.2s,color 0.2s;
   width:fit-content;
 }
-.btn-view:hover{gap:16px;opacity:0.75}
+.btn-view:hover{gap:12px;color:var(--accent);border-color:var(--accent)}
 
 .portfolio-cta{
-  padding:64px 56px;
-  background:var(--bg2);
+  padding:56px 56px 0;
   text-align:center;
-  border-top:0.5px solid var(--line2);
+  max-width:1400px;margin:0 auto;
 }
 .portfolio-cta p{
-  font-family:'Noto Serif JP',serif;
-  font-size:15px;font-weight:300;
-  color:var(--white2);line-height:2.2;
-  letter-spacing:0.06em;
-}
-.portfolio-cta em{
-  font-style:normal;
-  color:var(--gold);
+  font-family:'Zen Old Mincho',serif;
+  font-size:17px;font-weight:500;
+  color:var(--navy);line-height:2.2;
 }
 
 /* ─── PROCESS ─── */
 .process-section{
-  padding:100px 56px;
-  border-bottom:0.5px solid var(--line2);
-  position:relative;
-}
-.process-section::before{
-  content:'';
-  position:absolute;
-  top:0;right:0;
-  width:40%;height:100%;
-  background:radial-gradient(ellipse at 80% 50%,rgba(201,169,110,0.04) 0%,transparent 70%);
-  pointer-events:none;
+  padding:110px 56px;
 }
 .process-header{
-  display:grid;grid-template-columns:1fr 2fr;
+  display:grid;grid-template-columns:1fr 1.4fr;
   gap:48px;
-  margin-bottom:80px;
+  margin-bottom:64px;
   align-items:end;
+}
+.process-header-text{
+  font-size:14.5px;color:var(--muted);line-height:2.05;
 }
 .process-grid{
   display:grid;grid-template-columns:repeat(4,1fr);
-  border:0.5px solid var(--line2);
+  gap:20px;
 }
 .step{
-  padding:40px 32px;
-  border-right:0.5px solid var(--line2);
-  position:relative;
-  transition:background 0.3s;
+  padding:32px 26px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
 }
-.step:last-child{border-right:none}
-.step:hover{background:var(--bg2)}
 .step-num{
-  font-family:'Playfair Display',serif;
-  font-size:10px;letter-spacing:0.3em;
-  color:var(--gold);opacity:0.7;
-  margin-bottom:32px;
+  font-family:'Zen Old Mincho',serif;
+  font-size:13px;
+  color:var(--accent);
+  margin-bottom:22px;
 }
 .step-icon{
-  width:36px;height:36px;
-  border:0.5px solid var(--line);
-  border-radius:50%;
+  width:38px;height:38px;
+  border-radius:9px;
+  background:var(--navy-wash);
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;
-  color:var(--gold);
+  margin-bottom:18px;
+  color:var(--navy);
 }
 .step-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:15px;font-weight:300;
-  margin-bottom:12px;color:var(--white);
-  letter-spacing:0.06em;
+  font-family:'Zen Old Mincho',serif;
+  font-size:15.5px;font-weight:500;
+  margin-bottom:10px;color:var(--navy);
 }
-.step-text{font-size:12px;color:var(--muted);line-height:1.9;letter-spacing:0.02em}
+.step-text{font-size:12.5px;color:var(--muted);line-height:1.95}
 
 /* ─── PLANS ─── */
 .plans-section{
-  padding:100px 56px;
-  border-bottom:0.5px solid var(--line2);
+  padding:110px 56px;
+  background:var(--navy-soft);
 }
-.plans-header{margin-bottom:72px}
+.plans-header{margin-bottom:56px}
+.plans-intro{
+  font-size:14px;color:var(--muted);
+  margin-top:8px;max-width:520px;line-height:2;
+}
 .plans-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  border:0.5px solid var(--line2);
+  gap:24px;
+  align-items:start;
 }
 .plan{
-  padding:48px 40px;
-  border-right:0.5px solid var(--line2);
+  padding:40px 34px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
   display:flex;flex-direction:column;
-  position:relative;
-  transition:background 0.3s;
 }
-.plan:last-child{border-right:none}
-.plan:hover:not(.featured){background:var(--bg2)}
 .plan.featured{
-  background:var(--surface);
-  border-right:0.5px solid var(--line2);
-}
-.plan.featured::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  border:2px solid var(--navy);
+  box-shadow:0 16px 34px rgba(23,50,77,0.1);
+  position:relative;
 }
 .plan-badge{
   display:inline-block;
-  font-size:9px;letter-spacing:0.2em;
-  padding:5px 14px;
-  border:0.5px solid var(--gold);
-  color:var(--gold);
-  text-transform:uppercase;
-  margin-bottom:20px;
+  font-size:11.5px;font-weight:700;
+  padding:6px 14px;
+  background:var(--navy);
+  color:var(--white);
+  border-radius:100px;
+  margin-bottom:18px;
   width:fit-content;
 }
 .plan-tag{
-  font-size:9px;letter-spacing:0.25em;
-  color:var(--muted);text-transform:uppercase;
+  font-size:12px;font-weight:500;
+  color:var(--muted);
   margin-bottom:6px;
 }
 .plan-name{
-  font-family:'Playfair Display',serif;
-  font-size:30px;font-weight:400;
-  color:var(--white);margin-bottom:6px;
+  font-family:'Zen Old Mincho',serif;
+  font-size:24px;font-weight:500;
+  color:var(--navy);margin-bottom:14px;
 }
 .plan-price{
-  font-family:'Playfair Display',serif;
-  font-size:52px;font-weight:400;
-  color:var(--white);line-height:1;
-  letter-spacing:-0.02em;
+  font-family:'Zen Old Mincho',serif;
+  font-size:42px;font-weight:500;
+  color:var(--navy);line-height:1;
 }
-.plan.featured .plan-price{color:var(--gold)}
-.plan-mo{font-size:11px;color:var(--muted);margin-bottom:32px;letter-spacing:0.08em}
-.plan-div{
-  height:0.5px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-  margin-bottom:28px;opacity:0.4;
-}
+.plan-mo{font-size:12.5px;color:var(--muted);margin:8px 0 24px;padding-bottom:24px;border-bottom:1px solid var(--line-soft)}
 .plan-features{
-  list-style:none;flex:1;margin-bottom:36px;
+  list-style:none;flex:1;margin-bottom:28px;
 }
 .plan-features li{
-  font-size:12px;font-weight:300;color:var(--white2);
-  padding:10px 0;
-  border-bottom:0.5px solid var(--line2);
-  display:flex;align-items:center;gap:12px;
-  letter-spacing:0.03em;
+  font-size:13px;font-weight:400;color:var(--text);
+  padding:9px 0;
+  display:flex;align-items:flex-start;gap:10px;
+  line-height:1.7;
 }
-.plan-features li:last-child{border-bottom:none}
 .check-icon{
-  width:16px;height:16px;flex-shrink:0;
-  color:var(--gold);opacity:0.8;
+  width:16px;height:16px;flex-shrink:0;margin-top:2px;
+  color:var(--navy);
 }
 .plan-cta{
   display:block;text-align:center;
   padding:14px 24px;
-  font-size:11px;letter-spacing:0.18em;
+  font-size:13.5px;font-weight:500;
   text-decoration:none;
-  text-transform:uppercase;
-  transition:all 0.3s;
-  font-family:'Noto Sans JP',sans-serif;
+  border-radius:8px;
+  transition:all 0.25s;
 }
 .plan:not(.featured) .plan-cta{
-  border:0.5px solid var(--line2);
-  color:var(--muted);
+  border:1px solid var(--line);
+  color:var(--navy);
+  background:var(--white);
 }
 .plan:not(.featured) .plan-cta:hover{
-  border-color:var(--gold);color:var(--gold);
+  border-color:var(--navy);background:var(--navy-wash);
 }
 .plan.featured .plan-cta{
-  background:var(--gold);color:var(--bg);
+  background:var(--navy);color:var(--white);
 }
-.plan.featured .plan-cta:hover{opacity:0.85}
+.plan.featured .plan-cta:hover{background:var(--navy-mid)}
 
 /* ─── CTA ─── */
 .cta-section{
-  padding:140px 56px;
-  position:relative;overflow:hidden;
+  padding:120px 56px;
+  background:var(--navy);
   text-align:center;
 }
-.cta-section::before{
-  content:'';
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,169,110,0.08) 0%,transparent 70%),
-    var(--bg2);
-}
-.cta-section::after{
-  content:'';
-  position:absolute;top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-.cta-inner{position:relative;z-index:1}
 .cta-pre{
-  font-size:9px;letter-spacing:0.4em;
-  color:var(--gold);text-transform:uppercase;
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  margin-bottom:32px;
+  font-size:12.5px;font-weight:500;
+  color:var(--accent);
+  margin-bottom:20px;
 }
-.cta-pre::before,.cta-pre::after{content:'';flex:0 0 40px;height:0.5px;background:var(--gold)}
 .cta-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(32px,4.5vw,64px);
-  font-weight:200;
+  font-family:'Zen Old Mincho',serif;
+  font-size:clamp(28px,3.6vw,44px);
+  font-weight:500;
   color:var(--white);
-  line-height:1.5;
-  letter-spacing:0.06em;
-  margin-bottom:12px;
-}
-.cta-title em{
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-weight:400;
-  color:var(--gold);
+  line-height:1.6;
+  margin-bottom:16px;
 }
 .cta-sub{
-  font-size:14px;font-weight:300;
-  color:var(--muted);margin-bottom:56px;
-  line-height:2;letter-spacing:0.04em;
+  font-size:14.5px;font-weight:400;
+  color:rgba(255,255,255,0.75);margin-bottom:44px;
+  line-height:2;
 }
 .btn-cta{
-  display:inline-flex;align-items:center;gap:14px;
-  background:var(--gold);color:var(--bg);
-  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
-  padding:18px 48px;text-decoration:none;
-  transition:all 0.3s;
-  font-family:'Noto Sans JP',sans-serif;
-  font-weight:400;
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--white);color:var(--navy);
+  font-size:14.5px;font-weight:500;
+  padding:17px 42px;border-radius:8px;text-decoration:none;
+  transition:background 0.25s,transform 0.15s;
 }
-.btn-cta:hover{background:var(--gold2)}
+.btn-cta:hover{background:var(--bg-soft);transform:translateY(-1px)}
 
 /* ─── FOOTER ─── */
 footer{
   display:flex;align-items:center;justify-content:space-between;
   padding:28px 56px;
-  border-top:0.5px solid var(--line2);
+  background:var(--bg);
 }
 .footer-logo{
-  font-family:'Playfair Display',serif;
-  font-size:16px;font-weight:400;
-  color:var(--white);letter-spacing:0.12em;
+  font-family:'Zen Old Mincho',serif;
+  font-size:16px;font-weight:500;
+  color:var(--navy);
 }
-.footer-logo span{color:var(--gold)}
-.footer-links{display:flex;gap:32px;align-items:center}
+.footer-logo span{color:var(--accent)}
+.footer-links{display:flex;gap:28px;align-items:center}
 .footer-links a{
-  font-size:10px;letter-spacing:0.15em;
-  color:var(--muted);text-decoration:underline;
-  text-transform:uppercase;transition:color 0.25s;
+  font-size:12.5px;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
 }
-.footer-links a:hover{color:var(--gold)}
-.footer-copy{font-size:10px;color:var(--muted);letter-spacing:0.1em}
+.footer-links a:hover{color:var(--navy)}
+.footer-copy{font-size:12px;color:var(--muted)}
 
 /* ─── MOBILE ─── */
 @media(max-width:900px){
-  nav{padding:20px 24px}
+  nav{padding:18px 20px}
   .nav-links{display:none}
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:120px 24px 60px;border-right:none;border-bottom:0.5px solid var(--line2)}
-  .hero-right{padding:56px 24px}
-  .features-section{padding:72px 24px}
-  .features-header{grid-template-columns:1fr;gap:24px;margin-bottom:48px}
+  .hero-left{padding:110px 22px 48px}
+  .hero-right{padding:48px 22px;border-left:none;border-top:1px solid var(--line)}
+  .features-section{padding:64px 22px}
+  .features-header{grid-template-columns:1fr;gap:20px;margin-bottom:40px}
   .features-grid{grid-template-columns:1fr}
-  .feat{border-right:none;border-bottom:0.5px solid var(--line2)}
-  .feat:last-child{border-bottom:none}
-  .portfolio-header{flex-direction:column;padding:0 24px 40px;gap:16px}
+  .portfolio-section{padding:64px 0}
+  .portfolio-header{flex-direction:column;padding:0 22px 32px;gap:14px}
   .portfolio-note{text-align:left;max-width:100%}
-  .portfolio-grid{grid-template-columns:1fr}
-  .work-card{border-right:none;border-bottom:0.5px solid var(--line2)}
-  .device-frame{height:360px}
-  .process-section,.plans-section,.cta-section{padding:72px 24px}
-  .process-header{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr;padding:0 22px}
+  .device-frame{height:320px}
+  .portfolio-cta{padding:48px 22px 0}
+  .process-section{padding:64px 22px}
+  .process-header{grid-template-columns:1fr;gap:20px;margin-bottom:40px}
   .process-grid{grid-template-columns:1fr 1fr}
-  .step{border-bottom:0.5px solid var(--line2)}
-  .step:nth-child(2n){border-right:none}
+  .plans-section{padding:64px 22px}
   .plans-grid{grid-template-columns:1fr}
-  .plan{border-right:none;border-bottom:0.5px solid var(--line2)}
-  .plan:last-child{border-bottom:none}
-  .portfolio-cta{padding:48px 24px}
+  .cta-section{padding:80px 22px}
   footer{flex-direction:column;gap:16px;text-align:center;padding:24px}
   .footer-links{flex-wrap:wrap;justify-content:center}
 }
@@ -732,20 +606,20 @@ footer{
   <div class="hero-left">
     <div>
       <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
         <span class="hero-eyebrow-text">Web Design &amp; Development</span>
       </div>
       <h1 class="hero-title">
-        想いを、<br>
-        <em>Web</em>で<br>
-        形にする。
-        <span class="sub-line">— あなたのビジネスのための、<br>&emsp;&ensp;オーダーメイドサイト</span>
+        想いを、誠実に<br>
+        Webで形にする。
+        <span class="sub-line">あなたのビジネスのために、<br>丁寧なヒアリングからつくる<br>オーダーメイドサイト</span>
       </h1>
     </div>
     <div class="hero-bottom reveal">
       <p class="hero-desc">
-        何を伝えるべきか、一緒に考えるところから始めましょう。<br>
-        丁寧なヒアリングで、あなたのビジネスに寄り添った<br>
-        オーダーメイドのサイトを、驚きの低価格でお届けします。
+        何を伝えるべきか、一緒に考えるところから始めます。<br>
+        丁寧なヒアリングを通じて、あなたのビジネスに寄り添った<br>
+        オーダーメイドのホームページを、安心してお任せいただける価格でお届けします。
       </p>
       <a href="https://lin.ee/Z9vjxWH" class="btn-primary">
         <span>無料相談はこちら</span>
@@ -754,29 +628,33 @@ footer{
     </div>
   </div>
   <div class="hero-right">
-    <div class="reveal">
-      <p class="price-label">制作費・特別価格</p>
-      <p class="price-old">通常 ¥30,000</p>
-      <p class="price-main"><sup>¥</sup>10,000</p>
-      <p class="price-sub">税別 / 初回限定</p>
+    <div class="price-card reveal">
+      <p class="price-label">制作費のご案内</p>
+      <div class="price-compare">
+        <span class="price-compare-label">一般的な制作相場</span>
+        <span class="price-compare-val">30万円〜60万円</span>
+      </div>
+      <div class="price-main-row">
+        <p class="price-main"><sup>¥</sup>30,000</p>
+      </div>
+      <p class="price-unit">税別 / ホームページ制作一式</p>
       <p class="price-note">
-        ※制作実績への掲載にご協力いただける方限定<br>
-        通常価格より <strong style="color:var(--gold)">66%</strong> オフ
+        相場よりも導入しやすい価格で、<strong>プロ品質のサイト</strong>を制作いたします。<br>
+        ヒアリングから公開まで、丁寧に伴走します。
       </p>
-    </div>
-    <div class="hero-divider reveal reveal-delay-1"></div>
-    <div class="hero-stats reveal reveal-delay-2">
-      <div>
-        <span class="stat-num">3</span>
-        <span class="stat-label">月額プラン</span>
-      </div>
-      <div>
-        <span class="stat-num">66%</span>
-        <span class="stat-label">コスト削減</span>
-      </div>
-      <div>
-        <span class="stat-num">3〜</span>
-        <span class="stat-label">日で納品</span>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-num">3</span>
+          <span class="stat-label">月額プラン</span>
+        </div>
+        <div>
+          <span class="stat-num">最短</span>
+          <span class="stat-label">3日で納品</span>
+        </div>
+        <div>
+          <span class="stat-num">0円</span>
+          <span class="stat-label">初回相談料</span>
+        </div>
       </div>
     </div>
   </div>
@@ -785,22 +663,20 @@ footer{
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">HTML &amp; CSS <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Web Design <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Low Price <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Server &amp; Domain <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Monthly Support <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Bespoke Design <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Fast Delivery <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Content Update <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">HTML &amp; CSS <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Web Design <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Low Price <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Server &amp; Domain <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Monthly Support <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Bespoke Design <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Fast Delivery <span class="marquee-sep">◆</span></span>
-    <span class="marquee-item">Content Update <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">丁寧なヒアリング <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">安心の制作費 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">サーバー・ドメイン管理 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">月額サポート <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">オーダーメイドデザイン <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">スピード納品 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">更新代行 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">丁寧なヒアリング <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">安心の制作費 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">サーバー・ドメイン管理 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">月額サポート <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">オーダーメイドデザイン <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">スピード納品 <span class="marquee-sep">・</span></span>
+    <span class="marquee-item">更新代行 <span class="marquee-sep">・</span></span>
   </div>
 </div>
 
@@ -808,31 +684,36 @@ footer{
 <section class="features-section" id="features">
   <div class="features-header">
     <div class="reveal">
-      <div class="section-tag">Features</div>
-      <h2 class="section-title-en">Why Choose</h2>
-      <p class="section-title-jp">選ばれる理由</p>
+      <span class="section-tag">Features</span>
+      <h2 class="section-title-en">選ばれる理由</h2>
+      <p class="section-title-jp">Why Choose Us</p>
     </div>
-    <p class="features-intro reveal reveal-delay-1">
-      通常3万円の制作費をわずか10,000円でご提供。<br>
-      品質は一切妥協しません。<br>
-      想いを丁寧に形にする、それが私たちのスタイルです。
+    <p class="features-intro reveal">
+      一般的な制作相場30万〜60万円に対し、30,000円というご案内価格で対応。<br>
+      価格を抑えながらも、品質やコミュニケーションの丁寧さは一切妥協しません。
     </p>
   </div>
   <div class="features-grid">
     <div class="feat reveal">
-      <div class="feat-num" data-num="01">01</div>
-      <h3 class="feat-title">圧倒的な<br>コストパフォーマンス</h3>
-      <p class="feat-text">通常3万円の制作費をわずか10,000円でご提供。品質は一切妥協しません。制作実績への掲載にご協力いただけることで、この価格を実現しました。</p>
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V6m0 12v-2m9-4a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h3 class="feat-title">安心できる制作費</h3>
+      <p class="feat-text">一般的な相場よりも導入しやすい30,000円でご提供。制作実績への掲載にご協力いただくことで実現している価格です。品質は変わらず、丁寧に仕上げます。</p>
     </div>
-    <div class="feat reveal reveal-delay-1">
-      <div class="feat-num" data-num="02">02</div>
-      <h3 class="feat-title">徹底したヒアリングと<br>柔軟なオーダーメイド</h3>
-      <p class="feat-text">お客様のこだわりや理想のイメージを丁寧に反映。進捗を都度共有しながら、二人三脚でサイトを作り上げます。</p>
+    <div class="feat reveal">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      </div>
+      <h3 class="feat-title">徹底したヒアリング</h3>
+      <p class="feat-text">お客様のこだわりや理想のイメージを丁寧にお聞きし、反映します。進捗はその都度共有しながら、二人三脚でサイトを作り上げます。</p>
     </div>
-    <div class="feat reveal reveal-delay-2">
-      <div class="feat-num" data-num="03">03</div>
-      <h3 class="feat-title">制作後も<br>安心サポート</h3>
-      <p class="feat-text">月額プランでサーバー・ドメイン管理からコンテンツ更新まで継続サポートします。公開後も一切ご不安のないよう寄り添います。</p>
+    <div class="feat reveal">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h3 class="feat-title">公開後も安心のサポート</h3>
+      <p class="feat-text">月額プランでサーバー・ドメイン管理からコンテンツ更新まで継続的にサポートします。公開後もご不安なく、本業に集中いただけます。</p>
     </div>
   </div>
 </section>
@@ -841,14 +722,14 @@ footer{
 <section class="portfolio-section" id="portfolio">
   <div class="portfolio-header">
     <div class="reveal">
-      <div class="section-tag">Portfolio</div>
-      <h2 class="section-title-en">Selected Works</h2>
-      <p class="section-title-jp">制作実績</p>
+      <span class="section-tag">Portfolio</span>
+      <h2 class="section-title-en">制作実績</h2>
+      <p class="section-title-jp">Selected Works</p>
     </div>
-    <p class="portfolio-note reveal reveal-delay-1">
+    <p class="portfolio-note reveal">
       「ただ作る」のではなく、<br>
-      あなたの想いや集客の悩みに<br>
-      徹底的に寄り添います。
+      お客様の想いや集客のお悩みに<br>
+      丁寧に寄り添います。
     </p>
   </div>
 
@@ -856,7 +737,6 @@ footer{
     <div class="work-card reveal">
       <div class="device-frame">
         <img src="imagesLP/lp2.jpg" alt="Tem Nails">
-        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
         <p class="work-tag">Nail Salon / Landing Page</p>
@@ -866,10 +746,9 @@ footer{
       </div>
     </div>
 
-    <div class="work-card reveal reveal-delay-1">
+    <div class="work-card reveal">
       <div class="device-frame">
         <img src="imagesLP/lp1.jpg" alt="Luana">
-        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
         <p class="work-tag">Head Spa / Website</p>
@@ -879,10 +758,9 @@ footer{
       </div>
     </div>
 
-    <div class="work-card reveal reveal-delay-2">
+    <div class="work-card reveal">
       <div class="device-frame">
         <img src="imagesLP/lp4.jpg" alt="Baby Item">
-        <div class="device-overlay"></div>
       </div>
       <div class="work-info">
         <p class="work-tag">Rental Items / Website</p>
@@ -896,7 +774,7 @@ footer{
   <div class="portfolio-cta reveal">
     <p>
       予約導線、料金の見せ方、色のニュアンス。<br>
-      <em>どんな小さなこだわりも</em>、形にします。
+      どんな小さなこだわりも、形にします。
     </p>
   </div>
 </section>
@@ -905,45 +783,44 @@ footer{
 <section class="process-section" id="process">
   <div class="process-header">
     <div class="reveal">
-      <div class="section-tag">Process</div>
-      <h2 class="section-title-en">How We Work</h2>
-      <p class="section-title-jp">制作の流れ</p>
+      <span class="section-tag">Process</span>
+      <h2 class="section-title-en">制作の流れ</h2>
+      <p class="section-title-jp">How We Work</p>
     </div>
-    <p class="reveal reveal-delay-1" style="font-size:14px;color:var(--muted);line-height:2;letter-spacing:0.04em">
-      LINEで気軽にご相談いただければ、<br>
-      ヒアリングから公開・サポートまで<br>
+    <p class="process-header-text reveal">
+      LINEで気軽にご相談いただければ、ヒアリングから公開・サポートまで<br>
       すべてオンラインで完結します。
     </p>
   </div>
   <div class="process-grid">
     <div class="step reveal">
-      <p class="step-num">STEP — 01</p>
+      <p class="step-num">STEP 01</p>
       <div class="step-icon">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
       </div>
       <p class="step-title">ヒアリング</p>
       <p class="step-text">目的・ターゲット・イメージを丁寧にお聞きし、最適なプランをご提案します。</p>
     </div>
-    <div class="step reveal reveal-delay-1">
-      <p class="step-num">STEP — 02</p>
+    <div class="step reveal">
+      <p class="step-num">STEP 02</p>
       <div class="step-icon">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       </div>
       <p class="step-title">デザイン・構築</p>
       <p class="step-text">ヒアリング内容をもとにプロ品質のコーディングを行います。進捗を共有しながら理想に近づけます。</p>
     </div>
-    <div class="step reveal reveal-delay-2">
-      <p class="step-num">STEP — 03</p>
+    <div class="step reveal">
+      <p class="step-num">STEP 03</p>
       <div class="step-icon">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
       <p class="step-title">確認・修正</p>
       <p class="step-text">仮公開ページでご確認いただき、細部まで丁寧に修正対応します。</p>
     </div>
-    <div class="step reveal reveal-delay-3">
-      <p class="step-num">STEP — 04</p>
+    <div class="step reveal">
+      <p class="step-num">STEP 04</p>
       <div class="step-icon">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
       </div>
       <p class="step-title">公開・サポート</p>
       <p class="step-text">本公開後も月額プランで継続サポート。安心してビジネスに集中できます。</p>
@@ -954,51 +831,48 @@ footer{
 <!-- PLANS -->
 <section class="plans-section" id="plans">
   <div class="plans-header reveal">
-    <div class="section-tag">Plans</div>
-    <h2 class="section-title-en">Monthly Support</h2>
-    <p class="section-title-jp">月額サポートプラン</p>
+    <span class="section-tag">Plans</span>
+    <h2 class="section-title-en">月額サポートプラン</h2>
+    <p class="section-title-jp">Monthly Support</p>
+    <p class="plans-intro">公開後の運用も、お客様の状況に合わせて3つのプランからお選びいただけます。</p>
   </div>
   <div class="plans-grid">
     <div class="plan reveal">
       <p class="plan-tag">Light Plan</p>
       <p class="plan-name">ライト</p>
-      <p class="plan-price">¥3,000</p>
-      <p class="plan-mo">/ 月（税別）</p>
-      <div class="plan-div"></div>
-      <ul class="plan-features">
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
-      </ul>
-      <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
-    </div>
-    <div class="plan featured reveal reveal-delay-1">
-      <div class="plan-badge">Most Popular</div>
-      <p class="plan-tag">Standard Plan</p>
-      <p class="plan-name">スタンダード</p>
       <p class="plan-price">¥5,000</p>
       <p class="plan-mo">/ 月（税別）</p>
-      <div class="plan-div"></div>
       <ul class="plan-features">
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>ドメイン管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー・ドメイン管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>月1回の軽微な修正対応</li>
       </ul>
       <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
     </div>
-    <div class="plan reveal reveal-delay-2">
+    <div class="plan featured reveal">
+      <div class="plan-badge">一番人気</div>
+      <p class="plan-tag">Standard Plan</p>
+      <p class="plan-name">スタンダード</p>
+      <p class="plan-price">¥8,000</p>
+      <p class="plan-mo">/ 月（税別）</p>
+      <ul class="plan-features">
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>ライトプランの内容すべて</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>お知らせ・ブログ更新代行</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>簡易アクセスレポート</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>LINEでの日常相談</li>
+      </ul>
+      <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
+    </div>
+    <div class="plan reveal">
       <p class="plan-tag">Premium Plan</p>
       <p class="plan-name">プレミアム</p>
       <p class="plan-price">¥10,000</p>
       <p class="plan-mo">/ 月（税別）</p>
-      <div class="plan-div"></div>
       <ul class="plan-features">
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>写真・文章の更新</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>画像・文章の新規作成</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー管理</li>
-        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>独自ドメインの管理</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>スタンダードプランの内容すべて</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>優先対応（ご連絡から迅速に）</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>バナー作成</li>
+        <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>月1回のオンラインMTG</li>
       </ul>
       <a href="https://lin.ee/Z9vjxWH" class="plan-cta">相談する →</a>
     </div>
@@ -1007,9 +881,9 @@ footer{
 
 <!-- CTA -->
 <section class="cta-section">
-  <div class="cta-inner reveal">
+  <div class="reveal">
     <p class="cta-pre">Free Consultation</p>
-    <h2 class="cta-title">まずは、<em>気軽に</em><br>ご相談ください。</h2>
+    <h2 class="cta-title">まずは、気軽に<br>ご相談ください。</h2>
     <p class="cta-sub">
       LINEからいつでもお気軽にどうぞ。<br>
       お見積もりは無料です。
