@@ -915,6 +915,27 @@ const observer = new IntersectionObserver((entries)=>{
   });
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-</script>
+...
+  <!-- Dify AI診断チャットボット -->
+  <script>
+   window.difyChatbotConfig = {
+    token: 'qE2xdw997V4cmmyO',
+    baseUrl: 'https://udify.app'
+   }
+  </script>
+  <script
+   src="https://udify.app/embed.min.js"
+   id="qE2xdw997V4cmmyO"
+   defer>
+  </script>
+  <style>
+    #dify-chatbot-bubble-button {
+      background-color: #1C64F2 !important;
+    }
+    #dify-chatbot-bubble-window {
+      width: 24rem !important;
+      height: 40rem !important;
+    }
+  </style>
 </body>
 </html>
