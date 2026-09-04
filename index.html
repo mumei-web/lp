@@ -20,7 +20,7 @@
   --muted:     #5B6067;
   --line:      #E1E4E1;
   --line-soft: #ECEEEB;
-  --accent:    #C48B3D; /* warm secondary accent, used sparingly */
+  --accent:    #C48B3D;
 }
 
 html{scroll-behavior:smooth}
@@ -33,11 +33,16 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+/* 固定ヘッダー被り防止 */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
 
-/* ─── SCROLL REVEAL (single orchestrated hero moment; rest is static for calm, readable feel) ─── */
+/* ─── SCROLL REVEAL ─── */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
@@ -140,7 +145,6 @@ nav.scrolled{
 }
 .btn-primary:hover{background:var(--navy-mid);transform:translateY(-1px)}
 
-/* hero right panel */
 .hero-right{
   padding:168px 56px 88px;
   display:flex;flex-direction:column;
@@ -178,10 +182,6 @@ nav.scrolled{
 }
 .price-main sup{font-size:0.32em;vertical-align:super;color:var(--navy)}
 .price-unit{font-size:13px;color:var(--muted)}
-.price-sub{
-  font-size:12.5px;color:var(--muted);
-  margin-top:10px;
-}
 .price-note{
   font-size:12.5px;color:var(--text);
   background:var(--navy-wash);
@@ -240,9 +240,7 @@ nav.scrolled{
 }
 
 /* ─── FEATURES ─── */
-.features-section{
-  padding:110px 56px;
-}
+.features-section{padding:110px 56px}
 .features-header{
   display:grid;grid-template-columns:1fr 1fr;
   gap:48px;align-items:end;
@@ -376,9 +374,7 @@ nav.scrolled{
 }
 
 /* ─── PROCESS ─── */
-.process-section{
-  padding:110px 56px;
-}
+.process-section{padding:110px 56px}
 .process-header{
   display:grid;grid-template-columns:1fr 1.4fr;
   gap:48px;
@@ -560,6 +556,17 @@ footer{
 .footer-links a:hover{color:var(--navy)}
 .footer-copy{font-size:12px;color:var(--muted)}
 
+/* ─── DIFY CHATBOT STYLE ─── */
+#dify-chatbot-bubble-button {
+  background-color: #17324D !important; /* メインカラーのネイビーに合わせて統一感を創出 */
+  z-index: 999 !important;
+}
+#dify-chatbot-bubble-window {
+  width: 24rem !important;
+  height: 40rem !important;
+  z-index: 1000 !important;
+}
+
 /* ─── MOBILE ─── */
 @media(max-width:900px){
   nav{padding:18px 20px}
@@ -637,7 +644,7 @@ footer{
       <div class="price-main-row">
         <p class="price-main"><sup>¥</sup>30,000</p>
       </div>
-      <p class="price-unit">税別 / ホームページ制作一式</p>
+      <p class="price-unit">税込 / ホームページ制作一式</p>
       <p class="price-note">
         相場よりも導入しやすい価格で、<strong>プロ品質のサイト</strong>を制作いたします。<br>
         ヒアリングから公開まで、丁寧に伴走します。
@@ -841,7 +848,7 @@ footer{
       <p class="plan-tag">Light Plan</p>
       <p class="plan-name">ライト</p>
       <p class="plan-price">¥5,000</p>
-      <p class="plan-mo">/ 月（税別）</p>
+      <p class="plan-mo">/ 月（税込）</p>
       <ul class="plan-features">
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>サーバー・ドメイン管理</li>
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>サイト保守・管理</li>
@@ -854,7 +861,7 @@ footer{
       <p class="plan-tag">Standard Plan</p>
       <p class="plan-name">スタンダード</p>
       <p class="plan-price">¥8,000</p>
-      <p class="plan-mo">/ 月（税別）</p>
+      <p class="plan-mo">/ 月（税込）</p>
       <ul class="plan-features">
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>ライトプランの内容すべて</li>
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>お知らせ・ブログ更新代行</li>
@@ -867,7 +874,7 @@ footer{
       <p class="plan-tag">Premium Plan</p>
       <p class="plan-name">プレミアム</p>
       <p class="plan-price">¥10,000</p>
-      <p class="plan-mo">/ 月（税別）</p>
+      <p class="plan-mo">/ 月（税込）</p>
       <ul class="plan-features">
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>スタンダードプランの内容すべて</li>
         <li><svg class="check-icon" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>優先対応（ご連絡から迅速に）</li>
@@ -901,6 +908,7 @@ footer{
   <span class="footer-copy">&copy; 2026 Web Design Service</span>
 </footer>
 
+<!-- SCRIPTS -->
 <script>
 // Nav scroll
 const nav = document.getElementById('navbar');
@@ -916,26 +924,19 @@ const observer = new IntersectionObserver((entries)=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
-  <!-- Dify AI診断チャットボット -->
-  <script>
-   window.difyChatbotConfig = {
-    token: 'qE2xdw997V4cmmyO',
-    baseUrl: 'https://udify.app'
-   }
-  </script>
-  <script
-   src="https://udify.app/embed.min.js"
-   id="qE2xdw997V4cmmyO"
-   defer>
-  </script>
-  <style>
-    #dify-chatbot-bubble-button {
-      background-color: #1C64F2 !important;
-    }
-    #dify-chatbot-bubble-window {
-      width: 24rem !important;
-      height: 40rem !important;
-    }
-  </style>
+
+<!-- Dify AI診断チャットボット -->
+<script>
+ window.difyChatbotConfig = {
+   token: 'qE2xdw997V4cmmyO',
+   baseUrl: 'https://udify.app'
+ }
+</script>
+<script
+ src="https://udify.app/embed.min.js"
+ id="qE2xdw997V4cmmyO"
+ defer>
+</script>
+
 </body>
 </html>
