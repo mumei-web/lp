@@ -8,6 +8,91 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ===== 共通スタイル（style.css が無くても単体で表示できるようにするための補完） =====
+       ※ 下の style.css を読み込んだ場合は、そちらの定義が優先されます */
+    :root {
+      --rose: #c4547a;
+      --rose-dark: #9c3d5e;
+      --rose-deep: #7e2f4a;
+      --rose-light: #f0c8d5;
+      --rose-pale: #fdf1f4;
+      --white: #ffffff;
+      --text-mid: #6b5a60;
+      --text-light: #9b8a90;
+      --radius: 16px;
+      --radius-lg: 28px;
+      --shadow: 0 10px 40px rgba(156, 61, 94, 0.18);
+      --shadow-sm: 0 4px 18px rgba(156, 61, 94, 0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      color: var(--text-mid);
+      background: #fffafb;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, p { margin: 0; }
+
+    /* LINE予約ボタン */
+    .btn-line-reserve {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #06c755;
+      color: #fff;
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-line-reserve:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+    }
+    .btn-line-reserve i { font-size: 22px; }
+
+    /* 画面下の固定バー */
+    .fixed-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 100;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .fixed-bar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      background: #06c755;
+      color: #fff;
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 50px;
+    }
+    .fixed-bar a i { font-size: 20px; }
+  </style>
+  <!-- 既存サイトの style.css がある場合は、上の補完スタイルより優先して読み込まれます（単体で使う場合は削除してOK） -->
   <link rel="stylesheet" href="style.css">
   <style>
     /* ===== メニューページ専用スタイル ===== */
